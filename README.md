@@ -1,54 +1,93 @@
-main function is special: it is always the first code that runs in every executable Rust program
-println! calls a Rust macro (Rust macros are a way to write code that generates code to extend Rust syntax)
-! means calling a macro instead of a normal function
+# CHAPTER 1
 
-# Compiling and Running are separate steps
+## The `main` Function
 
-Before running a Rust program, you must compile it using the Rust compiler by entering the `rustc main.rs` command.
+- The `main` function is **special**: it is always the first code that runs in every executable Rust program.
+- `println!` calls a **Rust macro** (macros generate code to extend Rust syntax).
+- The `!` symbol means you are calling a **macro** instead of a normal function.
 
-Rust outputs a binary executable:
+---
 
-- main.exe
-- main.pdb
-- main.rs
+## Compiling vs Running
 
-This shows the source code file with the .rs extension, the executable file (main.exe on Windows, but main on all other platforms), and, when using Windows, a file containing debugging information with the .pdb extension.
+- **Compiling and running are separate steps.**
+- Before running a Rust program, you must compile it using the Rust compiler:
+  ```bash
+  rustc main.rs
+  ```
+- Rust outputs a **binary executable**, along with other files:
 
-Rust is an ahead-of-time compiled language, meaning you can compile a program and give the executable to someone else, and they can run it even without having Rust installed.
+  - `main.rs` → Source code file
+  - `main.exe` → Executable file (on Windows)
+  - `main` → Executable file (on Linux/macOS)
+  - `main.pdb` → Debugging information file (on Windows)
 
-# Cargo
+- Rust is an **ahead-of-time compiled language**.
+  - You can compile a program once and give the executable to someone else and they can run it even without having Rust installed.
 
-Rust's build system and package manager. Cargo handles building code, downloading libraries and building those libraries (in Rust, libraries = dependencies)
+---
 
-The below command creates a new project, Cargo generates 2 files and 1 directory: a Cargo.toml file with src directory with main.rs file
+## Cargo
 
-```
-cargo new hello_cargo
-```
+- Rust’s **build system and package manager**.
+- Cargo handles:
 
-TOML : (Tom’s Obvious, Minimal Language)
+  - Building code
+  - Downloading libraries
+  - Building dependencies (in Rust, libraries = dependencies)
 
-[package] - section heading
-name = "hello_cargo"
-version = "0.1.0"
-edition = "2024"
+- To create a new project:
 
-[dependencies] - project dependencies
+  ```bash
+  cargo new hello_cargo
+  ```
 
-In Rust, packages of code are referred to as crates
+- Cargo generates:
 
-# Building and running a cargo project
+  - `Cargo.toml` file
+  - `src` directory with `main.rs` file
 
-To build the project: cargo build -> creates an executable file in target/debug/main.exe. The default build is a debug build, Cargo puts the binary in a directory named debug.
+- **TOML (Tom’s Obvious, Minimal Language)** example:
 
-Running cargo build for the first time creates a new file at the top level: Cargo.lock (this file keeps a track of the exact versions of dependencies in the project)
+  ```toml
+  [package]
+  name = "hello_cargo"
+  version = "0.1.0"
+  edition = "2024"
 
-cargo check - quickly checks your code to make sure it compiles but doesn’t produce an executable
+  [dependencies]
+  ```
 
-# SUMMARY
+- In Rust, packages of code are called **crates**.
 
-We can create a project using cargo new.
-We can build a project using cargo build.
-We can build and run a project in one step using cargo run.
-We can build a project without producing a binary to check for errors using cargo check.
-Instead of saving the result of the build in the same directory as our code, Cargo stores it in the target/debug directory.
+---
+
+## Building and Running a Cargo Project
+
+- To build the project:
+
+  ```bash
+  cargo build
+  ```
+
+  - Creates an executable in `target/debug/main.exe` (Windows) or `target/debug/main` (Linux/macOS).
+  - The default build is a **debug build**.
+
+- Running `cargo build` for the first time also generates:
+
+  - `Cargo.lock` → Tracks exact versions of dependencies.
+
+- To check code quickly without producing an executable:
+  ```bash
+  cargo check
+  ```
+
+---
+
+## Summary
+
+- Create a project → `cargo new`
+- Build a project → `cargo build`
+- Build & run a project → `cargo run`
+- Check for errors without building → `cargo check`
+- Cargo stores build outputs in `target/debug` instead of the source directory.
