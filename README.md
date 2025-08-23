@@ -247,3 +247,20 @@ If one part of code operates on the assumption that a value will never change an
 Mutability can be very useful:
 
 - variables are immutable by default, you can make them mutable by adding `mut` in front of the variable name.
+
+## Constants
+
+- constants are values that are bound to a name and not allowed to change
+
+Difference between constants and immutable variables:
+
+1. constants are ALWAYS immutable (aren't allowed to use `mut` with constants)
+2. declared using the `const` keyword instead of `let`, must always annotate the type
+3. constants may be set only to a constant expression, not the result of a value that could only be computed at runtime
+
+Example: const THREE_HOURS_IN_SECONDS: u32 = 60 _ 60 _ 3
+
+Rust's naming convention for constants: use all uppercase with underscores between words
+
+Constants are valid for the entire time a program runs within the scope in which they were declared
+Constants are useful in naming hardcoded values used throughout the program
