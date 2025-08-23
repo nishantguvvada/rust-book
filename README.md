@@ -232,4 +232,18 @@ Using the std::io library provides several useful features, including the abilit
 
 # CHAPTER 3
 
-## variables, basic types, functions, comments and control flows
+- variables, basic types, functions, comments and control flows
+
+## Variables and Mutability
+
+- variables are immutable by default
+
+Why Rust encourages to favor immutability and why sometimes you might want to opt out?
+
+When a variable is immutable, once a value is bound to a name of the variable, you can't change that value
+
+If one part of code operates on the assumption that a value will never change and another part of code changes that value, it's possible that the first part of code won't do what it was designed to do. This kind of bug is difficult to track down especially when the second code changes the value only sometimes.
+
+Mutability can be very useful:
+
+- variables are immutable by default, you can make them mutable by adding `mut` in front of the variable name.
