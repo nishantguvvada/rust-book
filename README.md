@@ -232,35 +232,54 @@ Using the std::io library provides several useful features, including the abilit
 
 # CHAPTER 3
 
-- variables, basic types, functions, comments and control flows
+- Variables, basic types, functions, comments, and control flows
 
 ## Variables and Mutability
 
-- variables are immutable by default
+- Variables are immutable by default.
 
-Why Rust encourages to favor immutability and why sometimes you might want to opt out?
+### Why Rust Encourages Immutability and When to Opt Out
 
-When a variable is immutable, once a value is bound to a name of the variable, you can't change that value
+When a variable is immutable, once a value is bound to the name of the variable, you can't change that value.
 
-If one part of code operates on the assumption that a value will never change and another part of code changes that value, it's possible that the first part of code won't do what it was designed to do. This kind of bug is difficult to track down especially when the second code changes the value only sometimes.
+If one part of the code operates on the assumption that a value will never change and another part of the code changes that value, it's possible that the first part of the code won't do what it was designed to do. This kind of bug is difficult to track down, especially when the second part of the code changes the value only sometimes.
 
 Mutability can be very useful:
 
-- variables are immutable by default, you can make them mutable by adding `mut` in front of the variable name.
+- Variables are immutable by default, but you can make them mutable by adding `mut` in front of the variable name.
 
 ## Constants
 
-- constants are values that are bound to a name and not allowed to change
+- Constants are values bound to a name and not allowed to change.
 
-Difference between constants and immutable variables:
+### Differences Between Constants and Immutable Variables:
 
-1. constants are ALWAYS immutable (aren't allowed to use `mut` with constants)
-2. declared using the `const` keyword instead of `let`, must always annotate the type
-3. constants may be set only to a constant expression, not the result of a value that could only be computed at runtime
+1. Constants are ALWAYS immutable (you cannot use `mut` with constants).
+2. Declared using the `const` keyword instead of `let`, and must always annotate the type.
+3. Constants may only be set to a constant expression, not the result of a value computed at runtime.
 
-Example: const THREE_HOURS_IN_SECONDS: u32 = 60 _ 60 _ 3
+Example:
 
-Rust's naming convention for constants: use all uppercase with underscores between words
+```rust
+const THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3;
+```
 
-Constants are valid for the entire time a program runs within the scope in which they were declared
-Constants are useful in naming hardcoded values used throughout the program
+- Rust's naming convention for constants: use all uppercase with underscores between words.
+- Constants are valid for the entire time a program runs within the scope in which they were declared.
+- Constants are useful for naming hardcoded values used throughout the program.
+
+## Shadowing
+
+You can declare a new variable with the same name as a previous variable. The first variable is "shadowed" by the second.  
+The second variable is what the compiler sees when you use the variable's name.
+
+Shadowing is different from marking a variable as `mut`. If you try to reassign without `let`, you'll get a compile-time error. Using `let` allows you to perform transformations on a value while keeping the variable immutable after those transformations.
+
+```rust
+let spaces = "    "; // string type
+let spaces = spaces.len(); // number type
+
+// Using mut instead of let
+let mut spaces = "    ";
+spaces = spaces.len(); // compile-time error: not allowed to mutate a variable's type
+```
