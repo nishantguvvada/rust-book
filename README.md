@@ -229,3 +229,7 @@ Using the std::io library provides several useful features, including the abilit
 - If input cannot be parsed, use `Err(_) => continue` to skip and ask again instead of crashing.
 
 ---
+
+# CHAPTER 3
+
+## variables, basic types, functions, comments and control flows
