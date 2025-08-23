@@ -234,6 +234,8 @@ Using the std::io library provides several useful features, including the abilit
 
 - Variables, basic types, functions, comments, and control flows
 
+---
+
 ## Variables and Mutability
 
 - Variables are immutable by default.
@@ -247,6 +249,8 @@ If one part of the code operates on the assumption that a value will never chang
 Mutability can be very useful:
 
 - Variables are immutable by default, but you can make them mutable by adding `mut` in front of the variable name.
+
+---
 
 ## Constants
 
@@ -268,6 +272,8 @@ const THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3;
 - Constants are valid for the entire time a program runs within the scope in which they were declared.
 - Constants are useful for naming hardcoded values used throughout the program.
 
+---
+
 ## Shadowing
 
 You can declare a new variable with the same name as a previous variable. The first variable is "shadowed" by the second.  
@@ -283,3 +289,5 @@ let spaces = spaces.len(); // number type
 let mut spaces = "    ";
 spaces = spaces.len(); // compile-time error: not allowed to mutate a variable's type
 ```
+
+---
