@@ -282,6 +282,17 @@ The second variable is what the compiler sees when you use the variable's name.
 Shadowing is different from marking a variable as `mut`. If you try to reassign without `let`, you'll get a compile-time error. Using `let` allows you to perform transformations on a value while keeping the variable immutable after those transformations.
 
 ```rust
+
+let x = 5;
+let x = x + 1;
+
+{
+  let x = x * 2;
+  println!("The value of x in the inner scope is: {x}");
+}
+
+println!("The value of x is: {x}");
+
 let spaces = "    "; // string type
 let spaces = spaces.len(); // number type
 
