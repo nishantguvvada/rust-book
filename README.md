@@ -240,7 +240,7 @@ Using the std::io library provides several useful features, including the abilit
 
 - Variables are immutable by default.
 
-### Why Rust Encourages Immutability and When to Opt Out
+#### Why Rust Encourages Immutability and When to Opt Out
 
 When a variable is immutable, once a value is bound to the name of the variable, you can't change that value.
 
@@ -252,11 +252,11 @@ Mutability can be very useful:
 
 ---
 
-## Constants
+### Constants
 
 - Constants are values bound to a name and not allowed to change.
 
-### Differences Between Constants and Immutable Variables:
+#### Differences Between Constants and Immutable Variables:
 
 1. Constants are ALWAYS immutable (you cannot use `mut` with constants).
 2. Declared using the `const` keyword instead of `let`, and must always annotate the type.
@@ -274,7 +274,7 @@ const THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3;
 
 ---
 
-## Shadowing
+### Shadowing
 
 You can declare a new variable with the same name as a previous variable. The first variable is "shadowed" by the second.  
 The second variable is what the compiler sees when you use the variable's name.
@@ -302,3 +302,75 @@ spaces = spaces.len(); // compile-time error: not allowed to mutate a variable's
 ```
 
 ---
+
+## Data Types
+
+- Rust is a statically typed language, which means that it must know the types of all variables at compile time.
+- The compiler usually infers what type we want to use based on the value and how we use it. In cases when many types are possible, we must add a type annotation.
+
+### Scalar Types
+
+- A scalar type represents a single value.
+- Rust has 4 primary scalar types: integers, floating-point numbers, booleans, and characters.
+
+#### Integer Types
+
+An integer is a number without a fractional component.
+
+| Length                 | Signed | Unsigned |
+| ---------------------- | ------ | -------- |
+| 8-bit                  | i8     | u8       |
+| 16-bit                 | i16    | u16      |
+| 32-bit                 | i32    | u32      |
+| 64-bit                 | i64    | u64      |
+| 128-bit                | i128   | u128     |
+| Architecture dependent | isize  | usize    |
+
+- An integer can be 'Signed' or 'Unsigned'. Signed and unsigned refer to whether the number can be negative. Signed numbers include a sign, while unsigned numbers are always positive.
+- Signed numbers are stored using two’s complement representation.
+- Each signed variant can store numbers from `-(2^(n-1))` to `2^(n-1) - 1` inclusive, where `n` is the number of bits.
+
+Example of 8-bit numbers:
+
+```
+_ _ _ _ _ _ _ _ = 8 bits
+0    = 00000000
+127  = 01111111
+-128 = 10000000
+43   = 00101011
+```
+
+- Unsigned variants store numbers from `0` to `2^n - 1`.
+- `isize` and `usize` types depend on the computer architecture your program runs on.
+- Number literals can use `_` as a visual separator: `1_000` is the same as `1000`.
+- Integer types default to `i32`.
+- On overflow, Rust performs two’s complement wrapping:
+  - For example, in `u8`, 256 becomes 0, 257 becomes 1, etc.
+
+To explicitly handle overflow, you can use:
+
+- `wrapping_*` methods (e.g., `wrapping_add`) – wrap around.
+- `checked_*` methods – return `None` on overflow.
+- `overflowing_*` methods – return value and a Boolean overflow flag.
+- `saturating_*` methods – clamp to min or max value.
+
+#### Floating-Point Types
+
+- Rust has `f32` and `f64` types for floating-point numbers (32 and 64 bits, respectively).
+- All floating-point types are signed.
+
+#### Numeric Operations
+
+- Rust supports addition, subtraction, multiplication, division, and remainder operations.
+- Integer division truncates toward zero to the nearest integer.
+
+#### Boolean Types
+
+- Boolean type has two values: `true` and `false`.
+- Booleans are 1 byte (8 bits) in size.
+- Declared with the `bool` keyword.
+
+#### Character Types
+
+- `char` literals are specified with single quotes (e.g., `'a'`), whereas strings use double quotes (e.g., `"hello"`).
+- Rust’s `char` type is 4 bytes and represents a Unicode scalar value, meaning it can represent far more than ASCII characters.
