@@ -380,8 +380,6 @@ To explicitly handle overflow, you can use:
 - Compound types can group multiple values into one type.
 - Rust has 2 primitive compound types: **tuples** and **arrays**.
 
----
-
 #### Tuple Type
 
 - A general way of grouping together a number of values with a variety of types into one compound type.
@@ -394,8 +392,6 @@ To explicitly handle overflow, you can use:
 - A tuple without any values is called a **unit**.  
   The unit represents an empty value or empty return type.  
   _(Expressions implicitly return the unit value if they don't return any other value.)_
-
----
 
 #### Array Type
 
