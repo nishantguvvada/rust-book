@@ -374,3 +374,28 @@ To explicitly handle overflow, you can use:
 
 - `char` literals are specified with single quotes (e.g., `'a'`), whereas strings use double quotes (e.g., `"hello"`).
 - Rust’s `char` type is 4 bytes and represents a Unicode scalar value, meaning it can represent far more than ASCII characters.
+
+### Compound Types
+
+- Compound types can group multiple values into one type
+- Rust has 2 primitive compound types: tuples and arrays.
+
+#### Tuple Type
+
+- A general way of grouping together a number of values with a variety of types into one compound type.
+- Tuple has a fixed length, they cannot grow or shrink in size.
+- A tuple is created by writing a common-separated list of values inside parantheses. Types of different values in the tuple don't have to be the same.
+- We can use pattern matching to destructure a tuple value.
+- Destructuring refers to extracting the values of the tuple by breaking the single tuple into different parts.
+- We can access a tuple element directly by using a period followed by the index or the value.
+- A tuple without any values is called a 'unit'. 'unit' represents an empty value or empty return type. (Expressions implicitly return the unit value if they don't return any other value)
+
+#### Array Type
+
+- Another way to have a collection of multiple values. **Every element of an array must have the same type**.
+- Arrays in Rust have fixed length.
+- An array is created by writing a comma-separated list of values inside square brackets.
+- Arrays are useful when you want the data to be allocated on the stack rather than the heap or when you want to ensure you always have a fixed number of elements.
+- A vector is a similar collection type provided by standard library that is allowed to grow or shrink in size because contents live on heap.
+- You can initialize an array to contain the same value for each element by specifying the initial value, followed by a semicolor and then the length of the array in square brackets.
+- You can access elements of an array using indexing.
