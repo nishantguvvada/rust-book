@@ -409,4 +409,38 @@ To explicitly handle overflow, you can use:
   - Then the length of the array inside square brackets.
 - You can access elements of an array using **indexing**.
 
+## Functions
+
+- main(): entry point of programs
+- fn keywords allows to declar new functions
+- Rust uses snake case as the style for functions and variables
+- Functions are defined by using the fn keyword followed by the function name and a set of parentheses. The curly brackets denote the body of the function.
+- Functions can be called by mentioning the name followed by a set of parentheses.
+- Rust does not care where you define your functions, must be defined somewhere in a scope.
+- The lines execute in the order in which they appear in main().
+
+### Parameters
+
+- Parameters are special variables part of a function's signature.
+- You can provide concrete values for functions with parameters, called arguments.
+- In function signatures, you must declare the type of each parameter. Designed deliberately in Rust, requiring type annotations in function definitions means the compiler almost never needs you to use them elsewhere. The compiler is also able to give more helpful error messages if it knows what types the function expects.
+
+### Statements and Expressions
+
+- Functions are made up of a series of statements optionally ending in an expressions.
+- Statements are instructions that perform some action and do not return a value.
+  - Creating a variable and assigning a value to it with a let keyword (let x = 5;) is a statement
+  - Function definitions are also statements.
+- Statements do not return values, therefore, you can't assign a let statement to another variable (example: let x = (let y = 5);). The let y = 6 statement does not return a value, so there isn’t anything for x to bind to.
+- In other languages, the assignment returns the value of the assignment. In those languages, you can write x = y = 6 and have both x and y have the value 6; that is not the case in Rust.
+- Expressions evaluate to a resultant value.
+- Expressions can be part of a statement (example: 6 is an expression in let y = 6; that evaluates to the value 6)
+- Calling a function is an expression. A function without any return value returns a unit ().
+- Calling a macro is an expression, a scope block created with curly brackets is an expression.
+
+- Statements are line of code that do not give a value.
+- Expressions return a value or a result
+- An expression with a semicolon is converted to a statement
+- The last expression in the function should not have a semicolon
+
 ---
