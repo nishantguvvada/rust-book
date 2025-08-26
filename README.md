@@ -439,7 +439,7 @@ To explicitly handle overflow, you can use:
 - Calling a macro is an expression, a scope block created with curly brackets is an expression.
 - Expressions do not include ending semicolons. An expression with a semicolon is converted to a statement. It will not return a value.
 
-#### Functions with Return Values
+### Functions with Return Values
 
 - We must declare return type after an arrow.
 - In Rust, the return value of the function = the value of the final expression in the block of the body of a function.
