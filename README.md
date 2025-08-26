@@ -411,38 +411,48 @@ To explicitly handle overflow, you can use:
 
 ## Functions
 
-- main(): entry point of programs
-- fn keywords allows to declar new functions
-- Rust uses snake case as the style for functions and variables
-- Functions are defined by using the fn keyword followed by the function name and a set of parentheses. The curly brackets denote the body of the function.
+- **main()**: entry point of programs.
+- The `fn` keyword allows declaring new functions.
+- Rust uses **snake_case** as the style for functions and variables.
+- Functions are defined by using the `fn` keyword followed by the function name and a set of parentheses. The curly brackets denote the body of the function.
 - Functions can be called by mentioning the name followed by a set of parentheses.
-- Rust does not care where you define your functions, must be defined somewhere in a scope.
-- The lines execute in the order in which they appear in main().
+- Rust does not care where you define your functions; they must be defined somewhere in a scope.
+- The lines execute in the order in which they appear in `main()`.
 
 ### Parameters
 
-- Parameters are special variables part of a function's signature.
-- You can provide concrete values for functions with parameters, called arguments.
-- In function signatures, you must declare the type of each parameter. Designed deliberately in Rust, requiring type annotations in function definitions means the compiler almost never needs you to use them elsewhere. The compiler is also able to give more helpful error messages if it knows what types the function expects.
+- Parameters are special variables that are part of a function's signature.
+- You can provide concrete values for functions with parameters, called **arguments**.
+- In function signatures, you must declare the type of each parameter.
+- Rust deliberately requires type annotations in function definitions. This helps the compiler provide better error messages and reduces the need for type annotations elsewhere.
 
 ### Statements and Expressions
 
-- Functions are made up of a series of statements optionally ending in an expressions.
-- Statements are instructions that perform some action and do not return a value.
-  - Creating a variable and assigning a value to it with a let keyword (let x = 5;) is a statement
+- Functions are made up of a series of **statements** optionally ending in an **expression**.
+- **Statements** are instructions that perform some action and do not return a value.
+
+  - Example: `let x = 5;` is a statement.
   - Function definitions are also statements.
-- Statements do not return values, therefore, you can't assign a let statement to another variable (example: let x = (let y = 5);). The let y = 6 statement does not return a value, so there isn’t anything for x to bind to.
-- In other languages, the assignment returns the value of the assignment. In those languages, you can write x = y = 6 and have both x and y have the value 6; that is not the case in Rust.
-- Expressions evaluate to a resultant value.
-- Expressions can be part of a statement (example: 6 is an expression in let y = 6; that evaluates to the value 6)
-- Calling a function is an expression. A function without any return value returns a unit ().
-- Calling a macro is an expression, a scope block created with curly brackets is an expression.
-- Expressions do not include ending semicolons. An expression with a semicolon is converted to a statement. It will not return a value.
+
+- Statements do not return values, so you cannot assign a statement to another variable. For example:
+
+  ```rust
+  let x = (let y = 5); // Invalid
+  ```
+
+- In other languages, assignment often returns a value (e.g., `x = y = 6`). Rust does not follow this convention.
+- **Expressions** evaluate to a resultant value.
+
+  - Example: `6` in `let y = 6;` is an expression.
+
+- Calling a function or macro is an expression.
+- A scope block created with curly brackets is also an expression.
+- Expressions do not include ending semicolons. Adding a semicolon turns an expression into a statement.
 
 ### Functions with Return Values
 
-- We must declare return type after an arrow.
-- In Rust, the return value of the function = the value of the final expression in the block of the body of a function.
-- Functions return the last expression implicitly.
+- We must declare the return type after an arrow (`->`).
+- In Rust, the return value of the function is the value of the final expression in the function body.
+- Functions return the last expression implicitly, so you usually don't need the `return` keyword unless you want to return early.
 
 ---
