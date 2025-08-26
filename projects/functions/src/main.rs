@@ -10,6 +10,10 @@ fn main() {
     };
 
     println!("The value of y is {y}");
+
+    let z = five();
+
+    println!("The value of z is {z}");
 }
 
 fn another_function(x: i32) {
@@ -19,4 +23,8 @@ fn another_function(x: i32) {
 
 fn print_labeled_measurement(value: i32, unit_label: char) {
     println!("The measurement is {value}{unit_label}");
+}
+
+fn five() -> i32 {
+    5
 }

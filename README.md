@@ -437,10 +437,12 @@ To explicitly handle overflow, you can use:
 - Expressions can be part of a statement (example: 6 is an expression in let y = 6; that evaluates to the value 6)
 - Calling a function is an expression. A function without any return value returns a unit ().
 - Calling a macro is an expression, a scope block created with curly brackets is an expression.
+- Expressions do not include ending semicolons. An expression with a semicolon is converted to a statement. It will not return a value.
 
-- Statements are line of code that do not give a value.
-- Expressions return a value or a result
-- An expression with a semicolon is converted to a statement
-- The last expression in the function should not have a semicolon
+#### Functions with Return Values
+
+- We must declare return type after an arrow.
+- In Rust, the return value of the function = the value of the final expression in the block of the body of a function.
+- Functions return the last expression implicitly.
 
 ---
