@@ -456,3 +456,8 @@ To explicitly handle overflow, you can use:
 - Functions return the last expression implicitly, so you usually don't need the `return` keyword unless you want to return early.
 
 ---
+
+## Comments
+
+- Programmers leave comments in their source code that the compiler will ignore to make their code easy to understand, and sometimes extra explanation is warranted.
+- idiomatic comment style starts a comment with two slashes
