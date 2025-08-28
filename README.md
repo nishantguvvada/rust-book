@@ -461,3 +461,14 @@ To explicitly handle overflow, you can use:
 
 - Programmers leave comments in their source code that the compiler will ignore to make their code easy to understand, and sometimes extra explanation is warranted.
 - idiomatic comment style starts a comment with two slashes
+
+---
+
+## Control Flow
+
+- ability to run some code depending on whether a condition is true and to run some code repeatedly while a condition is true
+- most common constructs of Rust that let you control the flow of execution: `if` expressions and loops
+
+### if expressions
+
+- allows to branch code depending on conditions
