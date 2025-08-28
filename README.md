@@ -472,3 +472,20 @@ To explicitly handle overflow, you can use:
 ### if expressions
 
 - allows to branch code depending on conditions
+- start with the keyword if, followed by a condition
+- We place the block of code to execute if the condition is true immediately after the condition inside curly brackets. Blocks of code associated with the conditions in if expressions are sometimes called arms
+- If you don’t provide an else expression and the condition is false, the program will just skip the if block and move on to the next bit of code.
+- condition in the if expression must be a bool. We get an error if the condition isn't a bool.
+- You must be explicit and always provide if with a Boolean as its condition.
+
+### Handling multiple conditions with else if
+
+- You can use multiple conditions by combining if and else in an else if expression
+- The program checks each if expression and executes the first body for which the condition evaluates to true.
+- Rust only executes the block for the first true condition, and once it finds one, it doesn’t even check the rest.
+
+### Using if in a let statement
+
+- Because if is an expression, we can assign the outcome to the right of the let statement.
+- The variable will be bound to the value based on the outcome of the if expression.
+- if and else arms must have the same value types
