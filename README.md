@@ -466,26 +466,57 @@ To explicitly handle overflow, you can use:
 
 ## Control Flow
 
-- ability to run some code depending on whether a condition is true and to run some code repeatedly while a condition is true
-- most common constructs of Rust that let you control the flow of execution: `if` expressions and loops
+- Ability to run some code depending on whether a condition is true and to run some code repeatedly while a condition is true.
+- Most common constructs of Rust that let you control the flow of execution: `if` expressions and loops.
 
-### if expressions
+### if Expressions
 
-- allows to branch code depending on conditions
-- start with the keyword if, followed by a condition
-- We place the block of code to execute if the condition is true immediately after the condition inside curly brackets. Blocks of code associated with the conditions in if expressions are sometimes called arms
-- If you don’t provide an else expression and the condition is false, the program will just skip the if block and move on to the next bit of code.
-- condition in the if expression must be a bool. We get an error if the condition isn't a bool.
-- You must be explicit and always provide if with a Boolean as its condition.
+- Allows branching of code depending on conditions.
+- Start with the keyword `if`, followed by a condition.
+- We place the block of code to execute if the condition is true immediately after the condition inside curly brackets. Blocks of code associated with conditions in `if` expressions are sometimes called **arms**.
+- If you don’t provide an `else` expression and the condition is false, the program will skip the `if` block and move on to the next bit of code.
+- The condition in the `if` expression must be a `bool`. We get an error if the condition isn't a `bool`.
+- You must be explicit and always provide `if` with a Boolean as its condition.
 
-### Handling multiple conditions with else if
+#### Handling Multiple Conditions with `else if`
 
-- You can use multiple conditions by combining if and else in an else if expression
-- The program checks each if expression and executes the first body for which the condition evaluates to true.
-- Rust only executes the block for the first true condition, and once it finds one, it doesn’t even check the rest.
+- You can use multiple conditions by combining `if` and `else` in an `else if` expression.
+- The program checks each `if` expression and executes the first body for which the condition evaluates to `true`.
+- Rust only executes the block for the first `true` condition, and once it finds one, it doesn’t check the rest.
 
-### Using if in a let statement
+#### Using `if` in a `let` Statement
 
-- Because if is an expression, we can assign the outcome to the right of the let statement.
-- The variable will be bound to the value based on the outcome of the if expression.
-- if and else arms must have the same value types
+- Because `if` is an expression, we can assign the outcome to the right of the `let` statement.
+- The variable will be bound to the value based on the outcome of the `if` expression.
+- `if` and `else` arms must have the same value types.
+
+### Repetition with Loops
+
+- Loops enable the program to run through the code inside the loop body to the end and then start immediately back from the beginning.
+- Rust has 3 kinds of loops: `loop`, `while`, and `for`.
+
+#### Repeating Code with `loop`
+
+- The `loop` keyword tells Rust to execute a block of code repeatedly forever or until explicitly stopped.
+- You can place the `break` keyword within the loop to tell the program when to stop executing the loop.
+- The `continue` keyword tells the program to skip over any remaining code in this iteration of the loop and go to the next iteration.
+
+#### Returning Values from Loops
+
+- One of the uses of a loop is to retry an operation you know might fail.
+- To pass the result of an operation out of the loop to the rest of your code, add the value you want returned after the `break` expression you use to stop the loop.
+- You can also `return` from inside a loop. While `break` only exits the current loop, `return` always exits the current function.
+
+#### Loop Labels to Disambiguate between Multiple Loops
+
+- When you have loops within loops, `break` or `continue` keywords apply to the innermost loop.
+- You can specify a loop label on a loop and use it with `break` or `continue` to specify that those keywords apply to the labeled loop instead of the innermost loop.
+
+#### Conditional Loops with `while`
+
+- A program will often need to evaluate a condition within a loop. While the condition is true, the loop runs. When the condition ceases to be true, the program calls `break`, stopping the loop.
+
+#### Looping Through a Collection with `for`
+
+- You can use a `for` loop to execute some code for each item in a collection.
+- Machine code generated from `for` loops can be more efficient as well, because the index doesn’t need to be compared to the length of the array at every iteration.
