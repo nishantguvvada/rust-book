@@ -520,3 +520,10 @@ To explicitly handle overflow, you can use:
 
 - You can use a `for` loop to execute some code for each item in a collection.
 - Machine code generated from `for` loops can be more efficient as well, because the index doesn’t need to be compared to the length of the array at every iteration.
+
+# CHAPTER 4
+
+## Ownership
+
+- Rust's most unique feature
+- Enables Rust to make memory safety guarantees without needing a garbage collector
