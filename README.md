@@ -530,19 +530,24 @@ To explicitly handle overflow, you can use:
 
 ### What is Ownership?
 
-- Rust's most unique feature, guarantees memory safety
-- Rust does not have a garbage collector that removes unused variables from the program.
+- Ownership is a set of rules that govern how Rust manages memory.
+- Some languages have garbage collection that looks for no-longer-used memory as the program runs; in other languages, programmer must explicitly allocate and free the memory. In Rust, memory is managed through a system of ownership with a set of rules that the compiler checks.
 
 #### Stack vs Heap
 
-- Stack is organised memory storage, follows last in first out.
-- Every function is pushed to the Stack along with it's variables.
-- When the function goes out of scope, the function and it's variables are pushed out.
-- Variables of fixed length are stored on the stack.
-- Heap is unorganised memory storage.
-- Variables with no fixed length at compile time are stored on the heap (allocated on the heap)
-- A portion of memory is allocated to the variable on the heap. A pointer to this memory is stored on the stack.
-- Accessing data on the heap is slow because the memory is looked for.
+- Both stack and heap are parts of memory available to your code to use at runtime, but structured in different ways.
+- The stack stores values in the order it gets them (last in, first out) and removes in opposite order.
+- Adding data is called pushing onto the stack, removing data is called popping off the stack.
+- All data stored on the stack must have known, fixed size.
+- Data with an unknown size at compile time or a size that might change must be stored on the heap.
+- Heap is less organized - when you put data on the heap, you request a certain amount of space.
+- The memory allocator finds an empty spot in the heap that is big enough, marks it as being in use, and returns a pointer, which is the address of that location. This process is called allocating on the heap.
+- The pointer to the heap is a known, fixed size, you can store the pointer on the stack.
+- Pushing to the stack is faster than allocating on the heap because the allocator never has to search for a place to store new data; that location is always at the top of the stack.
+- Accessing data in the heap is generally slower than accessing data on the stack because you have to follow a pointer to get there.
+- When you code calls a function, the values passed into the function and the functional's local variables get pushed onto the stack. When the function is over, those values get popped off the stack.
+
+**The main purpose of ownership is to manage heap data**
 
 #### Ownership Rules
 
@@ -552,5 +557,5 @@ To explicitly handle overflow, you can use:
 
 #### Variable Scope
 
-- Scope is the range within the function for which the item is valid
+- Scope is the range within a program for which an item is valid
 - The variables are valid from the point at which it's declared until the end of the current scope.
