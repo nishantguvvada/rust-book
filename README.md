@@ -527,3 +527,30 @@ To explicitly handle overflow, you can use:
 
 - Rust's most unique feature
 - Enables Rust to make memory safety guarantees without needing a garbage collector
+
+### What is Ownership?
+
+- Rust's most unique feature, guarantees memory safety
+- Rust does not have a garbage collector that removes unused variables from the program.
+
+#### Stack vs Heap
+
+- Stack is organised memory storage, follows last in first out.
+- Every function is pushed to the Stack along with it's variables.
+- When the function goes out of scope, the function and it's variables are pushed out.
+- Variables of fixed length are stored on the stack.
+- Heap is unorganised memory storage.
+- Variables with no fixed length at compile time are stored on the heap (allocated on the heap)
+- A portion of memory is allocated to the variable on the heap. A pointer to this memory is stored on the stack.
+- Accessing data on the heap is slow because the memory is looked for.
+
+#### Ownership Rules
+
+- Each value has an owner.
+- There can be only one owner at a time.
+- When the owner goes out of scope, the value will be dropped.
+
+#### Variable Scope
+
+- Scope is the range within the function for which the item is valid
+- The variables are valid from the point at which it's declared until the end of the current scope.
