@@ -559,3 +559,13 @@ To explicitly handle overflow, you can use:
 
 - Scope is the range within a program for which an item is valid
 - The variables are valid from the point at which it's declared until the end of the current scope.
+
+#### The String Type
+
+- String literal are fixed in size at compile time
+- Size of variables of String type are not known at compile time
+- Variables of known size are stored on the stack, variables of unknown size are stored on the heap
+- The pointer to the memory on heap, the ength and the capacity of the variable is stored on the stack
+- Rust facilitates freeing up memory automatically by calling drop method after the scope of a variable ends.
+- The variable binds to a value assigned to it, when the scope of the variable ends, drop method frees the memory from the value.
+- Variable of fixed size copy value when assigned to another variable, variables of unknown size move the pointer to the new variable.
