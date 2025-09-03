@@ -604,3 +604,14 @@ let s2 = s1
 - We initially declare a variable s and bind it to a String with value "hello"
 - We immediately create a new String with the value "ahoy" and assign it to s. (At this point, nothing is referring to the original value on the heap)
 - The original string goes out of scope, Rust will run the drop function and it's memory will be freed.
+
+#### Variables and Data Interacting with Clone
+
+- To deeply copy the heap data of the String, not just the stack data, use `clone`.
+
+```
+let s1 = String::from("hello");
+let s2 = s1.clone();
+
+println!("s1 = {s1}, s2 = {s2}");
+```
