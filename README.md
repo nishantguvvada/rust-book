@@ -615,3 +615,23 @@ let s2 = s1.clone();
 
 println!("s1 = {s1}, s2 = {s2}");
 ```
+
+#### Stack-Only Data: Copy
+
+```
+let x = 5;
+let y = x;
+
+println!("x = {x}, y = {y}");
+```
+
+- The above code is valid. (x is still valid and wasn't moved into y)
+- The reason is that types such as integers that have a known size at compile time are stored entirely on the stack, so copies of the actual values are quick to make. That means there’s no reason we would want to prevent x from being valid after we create the variable y. In other words, there’s no difference between deep and shallow copying here, so calling clone wouldn’t do anything different from the usual shallow copying, and we can leave it out.
+- Rust has a special annotation called `Copy` trait placed on types stored on the stack
+- If your type doesn’t implement `Copy`, assignment or passing by value moves it and invalidates the source.
+  If your type implements `Copy`, assignment copies it, keeping both variables valid.
+- Rust won’t let us annotate a type with `Copy` if the type, or any of its parts, has implemented the `Drop` trait.
+
+**How to add the Copy annotation to your type to implement the trait**: https://doc.rust-lang.org/book/appendix-03-derivable-traits.html
+
+#### Ownership and Functions
