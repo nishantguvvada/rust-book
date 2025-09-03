@@ -559,13 +559,48 @@ To explicitly handle overflow, you can use:
 
 - Scope is the range within a program for which an item is valid
 - The variables are valid from the point at which it's declared until the end of the current scope.
+- `let s = "hello";` refers to a string literal, where the value of the string is hardcoded into the text of our program.
+- The variable is valid from the point at which it's declared until the end of the current scope.
 
 #### The String Type
 
-- String literal are fixed in size at compile time
-- Size of variables of String type are not known at compile time
-- Variables of known size are stored on the stack, variables of unknown size are stored on the heap
-- The pointer to the memory on heap, the ength and the capacity of the variable is stored on the stack
-- Rust facilitates freeing up memory automatically by calling drop method after the scope of a variable ends.
-- The variable binds to a value assigned to it, when the scope of the variable ends, drop method frees the memory from the value.
-- Variable of fixed size copy value when assigned to another variable, variables of unknown size move the pointer to the new variable.
+- Variables of a known size, can be stored on the stack and popped off the stack when their scope is over, can be quickly copied to make a new, independent instance if another part of code needs to use the same value in a different scope.
+- To explore how Rust knows when to clean up the data stored on the heap: String type is a great example
+- String literals are hardcoded into our program and are immutable.
+- String type manages data allocated on the heap and is able to store an amount of text that is unknown at compile time
+- To create a String type from a String literal, use the `from` function: `let s = String::from("hello");`
+- Variables are String type can be mutated but literals cannot. Why? - difference is in how these two types deal with memory. String literal contents are known at compile time, are hardcoded directly into the final executable, this is why String literals are fast and efficient.
+- In order to store a mutable, growable piece of text, we need to allocate an amount of memory on the heap, unknown at compile time i.e.
+  - memory must be requested from the memory allocator at runtime (done by us when we call `String::from`)
+  - we need a way to return this memory to the alloactor (GC/programmer/ownership)
+- In Rust, memory is automatically returned once the variable that owns it goes out of scope. When a variable goes out of scope, Rust calls a special function `drop`
+
+#### Variables and Data Interacting with Move
+
+```
+let x = 5; // bind the value 5 to x
+let y = x; // make a copy of the value in x and bind it to y
+```
+
+- The second line makes a copy of the value in x and bind it to y.
+- Integers are simple values with a known, fixed size. The two 5 values are pushed onto the stack.
+
+```
+let s1 = String::from("Hello");
+let s2 = s1
+```
+
+- A String type variable is made up of 3 parts, a pointer to the memory, a length and a capacity. (stored on the stack). The memory on the heap allocated to the variable holds the contents of the variable.
+- Length - how much memory in bytes the content is currently using.
+- Capacity - total amount of memory in bytes the variable has received from the allocator.
+- When we assign s1 to s2, String data is copied i.e. the pointer, the length and the capacity. We do not copy the data on the heap.
+- When s2 and s1 go out of scope, they will both try to free the same memory. (double free error - freeing memory twice)
+- To ensure memory safety, Rust considers s1 as no longer valid. Using s1 after s2 is created won't work. Rust prevents from using the invalidated reference.
+- Shallow Copy = copying the pointer, length, and capacity without copying the data
+- Rust invalidates the first variable along with a shallow copy, it's known as a move. (s1 was moved into s2)
+
+#### Scope and Assignment
+
+- We initially declare a variable s and bind it to a String with value "hello"
+- We immediately create a new String with the value "ahoy" and assign it to s. (At this point, nothing is referring to the original value on the heap)
+- The original string goes out of scope, Rust will run the drop function and it's memory will be freed.
