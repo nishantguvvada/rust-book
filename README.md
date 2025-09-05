@@ -696,3 +696,56 @@ fn calculate_length(s: String) -> (String, usize) {
 ```
 
 - This is a lot of work: Rust has a feature for using a value without transferring ownership: references
+
+#### References and Borrowing
+
+- A reference is a pointer we can follow to access the data stored; the data is owned by some other variable.
+- Unlike a pointer, a reference is guaranteed to point to a valid value for the life of the reference.
+- Ampersands represent references, they allow you to refer to some value without taking ownership of it.
+
+```
+let s1 = String::from("hello");
+
+let len = calculate_length(&s1);
+```
+
+- &s1 creates a reference that refers to the value of s1 but does not own it. The value will not be dropped when the reference stops being used.
+- When functions have references as parameters instead of the actual values, we won’t need to return the values in order to give back ownership, because we never had ownership.
+
+**Borrowing is the action of creating a reference**
+
+What happens if we try to modify something we're borrowing?
+
+- References are immutable by default.
+
+#### Mutable References
+
+```
+fn main() {
+    let mut s = String::from("hello");
+
+    change(&mut s);
+}
+
+fn change(some_string: &mut String) {
+    some_string.push_str(", world");
+}
+```
+
+- Mutable references have one big restriction: if you have a mutable reference to a value, you can have no other references to that value.
+
+```
+// This code attempts to create two mutable references to s, fails.
+let mut s = String::from("hello");
+
+    let r1 = &mut s;
+    let r2 = &mut s;
+
+    println!("{r1}, {r2}");
+```
+
+- You can use a reference of a variable
+- Using reference does not move the ownership
+- The reference is valid until the scope of variable
+- data races are conditions when the pointer points to an invalid memory
+-
