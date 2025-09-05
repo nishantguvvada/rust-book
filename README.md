@@ -744,8 +744,33 @@ let mut s = String::from("hello");
     println!("{r1}, {r2}");
 ```
 
-- You can use a reference of a variable
-- Using reference does not move the ownership
-- The reference is valid until the scope of variable
-- data races are conditions when the pointer points to an invalid memory
--
+- The restriction preventing multiple mutable references to the same data at the same time allows for mutation but in a very controlled fashion.
+- The benefit of having this restriction is that Rust can prevent data races at compile time. A data race is similar to a race condition and happens when these three behaviors occur:
+
+  - Two or more pointers access the same data at the same time.
+  - At least one of the pointers is being used to write to the data.
+  - There’s no mechanism being used to synchronize access to the data.
+
+- We also cannot have a mutable reference while we have an immutable one to the same value.
+- Users of an immutable reference don’t expect the value to suddenly change out from under them. However, multiple immutable references are allowed because no one who is just reading the data has the ability to affect anyone else’s reading of the data.
+
+#### Dangling References
+
+- A pointer that references a location in memory that may have been given to someone else by freeing some memory while preserving a pointer to that memory.
+
+```
+fn dangle() -> &String { // dangle returns a reference to a String
+
+    let s = String::from("hello"); // s is a new String
+
+    &s // we return a reference to the String, s
+} // Here, s goes out of scope and is dropped, so its memory goes away.
+  // Danger!
+```
+
+- Because s is created inside dangle, when the code of dangle is finished, s will be deallocated. But we tried to return a reference to it. That means this reference would be pointing to an invalid String.
+
+#### Rules of References
+
+- At any given time, you can have either one mutable reference or any number of immutable references.
+- References must always be valid.
