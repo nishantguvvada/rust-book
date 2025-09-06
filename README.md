@@ -697,7 +697,7 @@ fn calculate_length(s: String) -> (String, usize) {
 
 - This is a lot of work: Rust has a feature for using a value without transferring ownership: references
 
-#### References and Borrowing
+### References and Borrowing
 
 - A reference is a pointer we can follow to access the data stored; the data is owned by some other variable.
 - Unlike a pointer, a reference is guaranteed to point to a valid value for the life of the reference.
@@ -774,3 +774,11 @@ fn dangle() -> &String { // dangle returns a reference to a String
 
 - At any given time, you can have either one mutable reference or any number of immutable references.
 - References must always be valid.
+
+### The Slice Type
+
+- Slice is a reference to a contiguous sequence of elements in a collection
+- Why do we need Slice? - We can calculate the index of the portion of string but this index will not be tied to the string. If the string changes or is cleared, the index will still exist. Slice ensures that the index and the portion of the string are tied together and hence, provide meaningful data
+- The type representing Slice : &str
+- Slice is a reference, does not have ownership
+- s[0..4] starting_index..ending_index, ending index is not inclusive
