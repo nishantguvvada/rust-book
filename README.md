@@ -777,8 +777,72 @@ fn dangle() -> &String { // dangle returns a reference to a String
 
 ### The Slice Type
 
-- Slice is a reference to a contiguous sequence of elements in a collection
-- Why do we need Slice? - We can calculate the index of the portion of string but this index will not be tied to the string. If the string changes or is cleared, the index will still exist. Slice ensures that the index and the portion of the string are tied together and hence, provide meaningful data
-- The type representing Slice : &str
-- Slice is a reference, does not have ownership
-- s[0..4] starting_index..ending_index, ending index is not inclusive
+- Slices let you reference a contiguous sequence of elements in a collection. Slice is a reference, so it does not have ownership.
+  (We don’t really have a way to talk about part of a string.)
+- `iter` is a method that returns each element in a collection.
+- `as_bytes` is a method that converts String to an array of bytes.
+
+#### String Slices
+
+- A string slice is a reference to a contiguous sequence of the elements of a String.
+- Rather than a reference to the entire String, Slice is a reference to a portion of the String.
+  -We create slices using a range within brackets by specifying [starting_index..ending_index], where starting_index is the first position in the slice and ending_index is one more than the last position in the slice.
+- Slice data structure stores the starting position and the length of the slice. So, in the case of let world = &s[6..11];, world would be a slice that contains a pointer to the byte at index 6 of s with a length value of 5.
+
+```
+let s = String::from("hello");
+
+let slice = &s[0..2];
+let slice = &s[3..];
+let slice = &s[..];
+```
+
+- The type that signifies 'String Slice' is &str.
+
+#### String Literals as Slices
+
+- String literals are stored inside the binary.
+
+```
+let s = "Hello, world!";
+```
+
+- The type of s here is &str: it’s a slice pointing to that specific point of the binary. This is also why string literals are immutable; &str is an immutable reference.
+
+#### String Slices as Parameters
+
+```
+fn main() {
+    let my_string = String::from("hello world");
+
+    // `first_word` works on slices of `String`s, whether partial or whole.
+    let word = first_word(&my_string[0..6]);
+    let word = first_word(&my_string[..]);
+    // `first_word` also works on references to `String`s, which are equivalent
+    // to whole slices of `String`s.
+    let word = first_word(&my_string);
+
+    let my_string_literal = "hello world";
+
+    // `first_word` works on slices of string literals, whether partial or
+    // whole.
+    let word = first_word(&my_string_literal[0..6]);
+    let word = first_word(&my_string_literal[..]);
+
+    // Because string literals *are* string slices already,
+    // this works too, without the slice syntax!
+    let word = first_word(my_string_literal);
+}
+```
+
+#### Other Slices
+
+```
+let a = [1, 2, 3, 4, 5];
+
+let slice = &a[1..3];
+
+assert_eq!(slice, &[2, 3]);
+```
+
+The Rust language gives you control over your memory usage in the same way as other systems programming languages, but having the owner of data automatically clean up that data when the owner goes out of scope means you don’t have to write and debug extra code to get this control.
