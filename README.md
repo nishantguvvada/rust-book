@@ -846,3 +846,87 @@ assert_eq!(slice, &[2, 3]);
 ```
 
 The Rust language gives you control over your memory usage in the same way as other systems programming languages, but having the owner of data automatically clean up that data when the owner goes out of scope means you don’t have to write and debug extra code to get this control.
+
+# CHAPTER 5
+
+Using Structs to Structure Related Data
+
+- struct or structure is a custom data type that lets you package and name multiple related values that make up a meaningful group.
+- a struct is like an object's data attributes (in object-oriented language)
+
+## Defining and Instantiating Structs
+
+- Structs are similar to tuples (both hold multiple related values), like tuples, pieces of a struct can be different types.
+- Unlike tuples, in a struct you'll name each piece of data: you don't have to rely on the order of the data to specify or access the values of an instance.
+
+```
+struct User {
+  active: bool,
+  username: String,
+  email: String,
+  sign_in_count: u64 // pieces of data of a struct = fields
+}
+```
+
+- The struct definition is like a general template for the type, and instances fill in that template with particular data to create values of the type.
+
+- To get a specific value from a struct, we use dot notation: `user1.email`
+- To change the value in the email field of a mutable User instance: `user1.email = String::from("anotheremail@example.com");`
+
+### Using the Field init shorthand
+
+```
+fn build_user(email: String, username: String) -> User {
+    User {
+        active: true,
+        username, // instead of using username: username, we only need to write username
+        email,
+        sign_in_count: 1,
+    }
+}
+```
+
+### Creating Instances from Other Instances with Struct Update Syntax
+
+- Without update syntax:
+
+```
+let user2 = User {
+  active: user1.active,
+  username: user1.username,
+  email: String::from("anotheremail@example.com"),
+  sign_in_count: user1.sign_in_count
+};
+```
+
+- With update syntax: `..` specifies that the remaining fields not explicitly set should have the same value as the fields in the given instance.
+
+```
+let user2 = User{
+  email: String::from("anotheremail@example.com"),
+  ..user1
+}
+```
+
+- struct update syntax uses = like an assignment; this is because it moves the data. We can no longer use user1 after creating user2 because the String in the username field of user1 was (ownership) moved into user2.
+- If we had given user2 new String values for both email and username, and thus only used the active and sign_in_count values from user1, then user1 would still be valid after creating user2. Both active and sign_in_count are types that implement the Copy trait
+
+### Using Tuple Structs without Named Fields to create different types
+
+- structs that look similar to tuples: tuple structs
+- Tuple structs are useful when you want to give the whole tuple a name and make the tuple a different type from other tuples, and when naming each field as in a regular struct would be verbose or redundant.
+
+```
+struct Color(i32, i32, i32);
+struct Point(i32, i32, i32);
+
+fn main() {
+    let black = Color(0, 0, 0);
+    let origin = Point(0, 0, 0);
+}
+```
+
+- Each struct you define is its own type, even though the fields within the struct might have the same types.
+- To destructure the values in the origin point into variables named x, y and z: `let Point(x, y, z) = origin;`
+
+#### Unit-Like Structs without any Fields
