@@ -930,3 +930,14 @@ fn main() {
 - To destructure the values in the origin point into variables named x, y and z: `let Point(x, y, z) = origin;`
 
 #### Unit-Like Structs without any Fields
+
+- unit-like structs: structs that don't have any fields
+- Unit-like structs can be useful when you need to implement a trait on some type but don’t have any data that you want to store in the type itself.
+
+```
+struct AlwaysEqual;
+
+fn main() {
+    let subject = AlwaysEqual;
+}
+```
