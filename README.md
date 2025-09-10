@@ -982,3 +982,40 @@ fn area(dimensions: (u32, u32)) -> u32 {
     dimensions.0 * dimensions.1
 }
 ```
+
+### Refactoring with Structs
+
+- Structs add meaning by labeling the data.
+
+```
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+fn main() {
+    let rect1 = Rectangle {
+        width: 30,
+        height: 50,
+    };
+
+    println!(
+        "The area of the rectangle is {} square pixels.",
+        area(&rect1)
+    );
+}
+
+fn area(rectangle: &Rectangle) -> u32 {
+    rectangle.width * rectangle.height
+}
+```
+
+### Adding Useful Functionality with Derived Traits
+
+- The println! macro can do many kinds of formatting, and by default, the curly brackets tell println! to use formatting known as Display: output intended for direct end user consumption.
+- The primitive types we’ve seen so far implement Display by default because there’s only one way you’d want to show a 1 or any other primitive type to a user.
+- But with structs, the way println! should format the output is less clear because there are more display possibilities: Do you want commas or not? Do you want to print the curly brackets? Should all the fields be shown? Due to this ambiguity, Rust doesn’t try to guess what we want, and structs don’t have a provided implementation of Display to use with println! and the {} placeholder.
+- Putting the specifier `:?` inside the curly brackets tells println! we want to use an output format called Debug
+- To add the functionality to print out debugging information for the struct, we add the outer attribute `#[derive(Debug)]`
+- When we have larger structs, use `:#?`
+- dbg! macro takes ownership of an experssion, prints the file and line number of where that dbg! macro call occurs and returns ownership of the value.
