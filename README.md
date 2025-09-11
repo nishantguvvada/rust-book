@@ -1019,3 +1019,9 @@ fn area(rectangle: &Rectangle) -> u32 {
 - To add the functionality to print out debugging information for the struct, we add the outer attribute `#[derive(Debug)]`
 - When we have larger structs, use `:#?`
 - dbg! macro takes ownership of an experssion, prints the file and line number of where that dbg! macro call occurs and returns ownership of the value.
+
+## Method Syntax
+
+- Methods are similar to functions: declare them using `fn` keyword and a name.
+- Unlike functions, methods are defined in the context of a struct (or an enum or a trait object).
+- The first parameter of a method is always `self` which represents the instance of the struct.
