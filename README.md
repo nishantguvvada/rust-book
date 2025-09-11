@@ -1025,3 +1025,10 @@ fn area(rectangle: &Rectangle) -> u32 {
 - Methods are similar to functions: declare them using `fn` keyword and a name.
 - Unlike functions, methods are defined in the context of a struct (or an enum or a trait object).
 - The first parameter of a method is always `self` which represents the instance of the struct.
+
+### Defining Methods
+
+- To define the function within the context of Rectangle, we start an impl (implementation) block for Rectangle. Everything within this impl block will be associated with the Rectangle type.
+- The &self is actually short for self: &Self. Within an impl block, the type Self is an alias for the type that the impl block is for.
+- If we wanted to change the instance that we’ve called the method on as part of what the method does, we’d use &mut self as the first parameter.
+- Often, but not always, when we give a method the same name as a field we want it to only return the value in the field and do nothing else. Methods like this are called getters, and Rust does not implement them automatically for struct fields as some other languages do. Getters are useful because you can make the field private but the method public, and thus enable read-only access to that field as part of the type’s public API.
