@@ -1032,3 +1032,15 @@ fn area(rectangle: &Rectangle) -> u32 {
 - The &self is actually short for self: &Self. Within an impl block, the type Self is an alias for the type that the impl block is for.
 - If we wanted to change the instance that we’ve called the method on as part of what the method does, we’d use &mut self as the first parameter.
 - Often, but not always, when we give a method the same name as a field we want it to only return the value in the field and do nothing else. Methods like this are called getters, and Rust does not implement them automatically for struct fields as some other languages do. Getters are useful because you can make the field private but the method public, and thus enable read-only access to that field as part of the type’s public API.
+
+# CHAPTER 6
+
+Enums and Pattern Matching
+
+- Enums allow defining a type with all possible variants
+- Enums encode meaning along with the data
+- Option enum represents something or nothing
+- Match expression makes it easy to run different code for different variants of the enum
+- if let construct also handles enums
+
+## Defining an Enum
