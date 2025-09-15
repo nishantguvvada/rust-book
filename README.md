@@ -1086,3 +1086,32 @@ enum IpAddr {
   v6(Ipv6Addr)
 }
 ```
+
+- But if we used the different structs, each of which has its own type, we couldn’t as easily define a function to take any of the kinds.
+- We can define methods on enums.
+
+```
+    impl Message {
+        fn call(&self) {
+            // method body would be defined here
+        }
+    }
+
+    let m = Message::Write(String::from("hello"));
+    m.call();
+```
+
+### Option Enum
+
+- A null is a value that is currently invalid or absent for some reason.
+- `Option<T>` : an enum that can encode the concept of a value being present or absent.
+
+```
+enum Option<T> {
+  None,
+  Some(T)
+}
+```
+
+- When we have a Some value, we know that a value is present and the value is held within the Some. When we have a None value, in some sense it means the same thing as null: we don’t have a valid value.
+- You have to convert an Option<T> to a T before you can perform T operations with it.
