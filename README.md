@@ -1037,10 +1037,52 @@ fn area(rectangle: &Rectangle) -> u32 {
 
 Enums and Pattern Matching
 
-- Enums allow defining a type with all possible variants
+- Enums allow you to define a type by enumerating its possible variants
 - Enums encode meaning along with the data
-- Option enum represents something or nothing
+- Option enum expresses that a value can either be something or nothing
 - Match expression makes it easy to run different code for different variants of the enum
-- if let construct also handles enums
+- `if let` construct also handles enums
 
 ## Defining an Enum
+
+- An enum value can only be one of its variants. They should be treated as the same type.
+
+```
+enum IpAddrKind {
+  v4,
+  v6
+}
+```
+
+### Enum Values
+
+- We can create instances of each of the variants. `let four = IpAddrKind::v4`
+- We can put data directly into each enum variant.
+
+```
+enum IpAddr {
+  v4(String),
+  v6(String)
+}
+
+let home = IpAddr::v4(String::from("127.0.0.1"))
+```
+
+- The name of each enum variant becomes a function that constructs an instance of the enum.
+- Each variant can have different types and amounts of associated data.
+- The standard library defines IpAdd with address data embedded inside each variant in the form of structs
+
+```
+struct Ipv4Addr {
+
+}
+
+struct Ipv6Addr {
+
+}
+
+enum IpAddr {
+  v4(Ipv4Addr)
+  v6(Ipv6Addr)
+}
+```
