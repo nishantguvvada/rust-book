@@ -1115,3 +1115,8 @@ enum Option<T> {
 
 - When we have a Some value, we know that a value is present and the value is held within the Some. When we have a None value, in some sense it means the same thing as null: we don’t have a valid value.
 - You have to convert an Option<T> to a T before you can perform T operations with it.
+
+## The match Control Flow Construct
+
+- `match` a control flow construct that allows you to compare a value against a series of patterns and then execute code based on which pattern matches.
+- Values go through each pattern in a match construct and at the first pattern the value fits, the value falls into the associated code block to be used during execution.
