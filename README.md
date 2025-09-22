@@ -1120,12 +1120,55 @@ enum Option<T> {
 
 - `match` a control flow construct that allows you to compare a value against a series of patterns and then execute code based on which pattern matches.
 - Values go through each pattern in a match construct and at the first pattern the value fits, the value falls into the associated code block to be used during execution.
+- We list the `match` keyword followed by an expression similar to a conditional expression used with `if`. With `if`, the condition needs to evaluate to a Boolean value but with `match`, it can be any type.
+- An amr has 2 parts: a pattern and some code.
+- `=>` operator separates the pattern and the code to run.
+- When the `match` expression executes, it compares the resultant value against the pattern of each arm, in order. If a pattern matches the value, the code associated with that pattern is executed. If that pattern doesn’t match the value, execution continues to the next arm.
+- The code associated with each arm is an expression, and the resultant value of the expression in the matching arm is the value that gets returned for the entire `match` expression.
 
-- The pattern is followed by `=>` operator ending with an expression
-- The resultant value of the executed code is bound to the pattern.
-- Match is exhaustive: Rust does not allow to miss any pattern.
-- You can match a value of a variant of an enum
-- You can extract a value out of an enum by using the match expression
-- You can catch all patterns but ensure that specific patterns are listed at the top.
-- Patterns are matched in order.
-- If the value is not used, you can use `_`
+```
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter,
+}
+
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny => 1,
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter => 25,
+    }
+}
+```
+
+### Pattern that Binds to Values
+
+- `match` arms can bind to the parts of the values that match the pattern.
+
+### Matching with Option<T>
+
+```
+    fn plus_one(x: Option<i32>) -> Option<i32> {
+        match x {
+            None => None,
+            Some(i) => Some(i + 1),
+        }
+    }
+
+    let five = Some(5);
+    let six = plus_one(five);
+    let none = plus_one(None);
+```
+
+- When we call plus_one(five), the variable x in the body of plus_one will have the value Some(5). We then compare that against each match arm.
+
+### Matches are Exhaustive
+
+- The arms' patterns must cover all possibilities.
+
+### Catch-All Patterns and the \_ Placeholder
+
+- A pattern we can use when we want a catch-all but don’t want to use the value in the catch-all pattern: \_ is a special pattern that matches any value and does not bind to that value.
