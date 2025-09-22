@@ -1120,3 +1120,12 @@ enum Option<T> {
 
 - `match` a control flow construct that allows you to compare a value against a series of patterns and then execute code based on which pattern matches.
 - Values go through each pattern in a match construct and at the first pattern the value fits, the value falls into the associated code block to be used during execution.
+
+- The pattern is followed by `=>` operator ending with an expression
+- The resultant value of the executed code is bound to the pattern.
+- Match is exhaustive: Rust does not allow to miss any pattern.
+- You can match a value of a variant of an enum
+- You can extract a value out of an enum by using the match expression
+- You can catch all patterns but ensure that specific patterns are listed at the top.
+- Patterns are matched in order.
+- If the value is not used, you can use `_`
