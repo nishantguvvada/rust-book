@@ -14,6 +14,10 @@ fn read_from_file(path: &str) -> Result<(), Box<dyn Error>> {
 
 fn main() {
     if let Err(e) = read_from_file("./reports.csv") {
+        // checks if the function returned an error.
+        // Err(e) is just a value of type Result::Err, holding an error.
+        // It doesn’t “throw” anything (Rust doesn’t have exceptions). It just represents an error result.
+        // if let lets you check whether a value matches a pattern
         eprintln!("{}", e);
     }
 }
