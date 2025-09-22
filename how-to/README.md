@@ -50,3 +50,24 @@ fn main() {
     )
 }
 ```
+
+## How to read a file from the CLI?
+
+- **Option 1: Use std::fs::read_to_string**
+
+```
+    let content = std::fs::read_to_string(&args.path).expect("could not read file");
+
+    for line in content.lines() {
+        if line.contains(&args.pattern) {
+            println!("{}", line);
+        }
+    }
+```
+
+- **Option 2: Use BufReader**
+
+```
+    let f = std::fs::File::open(&args.path).expect("could not read file");
+    let reader = BufReader::new(f);
+```
