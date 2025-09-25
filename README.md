@@ -1173,17 +1173,40 @@ fn value_in_cents(coin: Coin) -> u8 {
 
 - A pattern we can use when we want a catch-all but don’t want to use the value in the catch-all pattern: \_ is a special pattern that matches any value and does not bind to that value.
 
-### if let and let else
+### Concise Control Flow with `if let` and `let else`
 
-- When only one pattern needs to be matched and the rest ignored, you will have to write all the match arms in a match expression because match is exhaustive.
-- You can use if let which allows you to check a condition and execute a code if the condition matches
+- `if let` lets you handle values that match one pattern while igorning the rest.
 
 ```
-if let coin = Coin::Penny {
-  value
-} else {
-  None
+let config_max = Some(3u8);
+match config_max { // executes code when the value is some
+  Some(max) => println!("The maximum is configured to be {max}),
+  _ => ()
 }
 ```
 
-- let else is also similar to it
+```
+let config_max = Some(3u8);
+if let Some(max) = config_max {
+  println!("The maximum is configured to be {max});
+}
+```
+
+- `if let` takes a pattern (Some(max)) and an expression (println!) separated by a `=`
+- Using `if let` means losing exhaustive checking
+
+### Staying on the "Happy Path" with let...else
+
+```
+fn describe_state_quarter(coin: Coin) -> Option<String> {
+    let Coin::Quarter(state) = coin else {
+        return None;
+    };
+
+    if state.existed_in(1900) {
+        Some(format!("{state:?} is pretty old, for America!"))
+    } else {
+        Some(format!("{state:?} is relatively new."))
+    }
+}
+```
