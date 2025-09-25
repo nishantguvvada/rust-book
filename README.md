@@ -1172,3 +1172,18 @@ fn value_in_cents(coin: Coin) -> u8 {
 ### Catch-All Patterns and the \_ Placeholder
 
 - A pattern we can use when we want a catch-all but don’t want to use the value in the catch-all pattern: \_ is a special pattern that matches any value and does not bind to that value.
+
+### if let and let else
+
+- When only one pattern needs to be matched and the rest ignored, you will have to write all the match arms in a match expression because match is exhaustive.
+- You can use if let which allows you to check a condition and execute a code if the condition matches
+
+```
+if let coin = Coin::Penny {
+  value
+} else {
+  None
+}
+```
+
+- let else is also similar to it
