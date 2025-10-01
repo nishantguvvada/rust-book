@@ -1218,3 +1218,21 @@ fn describe_state_quarter(coin: Coin) -> Option<String> {
 - Crates: A tree of modules that produces a library or executable
 - Modules and use: Let you control the organization, scope, and privacy of paths
 - Paths: A way of naming an item, such as a struct, function, or module
+
+## Packages and Crates
+
+- Crate is the smallest amount of code that the Rust compiler considers.
+- Rust considers a single source code file to be a crate as well.
+- Crates can contain modules (modules maybe defined in other files).
+- Crate can be : binary crate or library crate
+- Binary crate: programs compiled to an executable, must have a function called main.
+- Library crate: don't have a main function, don't compile to an executable. They define functionality intended to be shared with multiple projects.
+- Crate root is a source file that Rust compiler starts from. Root module of the crate.
+- Package is a bundle of one or more crates, contains a Cargo.toml file that describes how to build those crates.
+- Cargo is actually a package that contains the binary crate for the command line tool you’ve been using to build your code. The Cargo package also contains a library crate that the binary crate depends on.
+- A package can contain as many binary crates but at most only one library crate. A package must contain at least one crate.
+- Running `cargo new my-project` creates a new project with a Cargo.toml and src/main.rs.
+- src/main.rs is the crate root of a binary crate with the same name as the package.
+- Cargo knows that if the package directory contains src/lib.rs, the package contains a library crate with the same name as the package, and src/lib.rs is its crate root.
+- Cargo passes the crate root files to rustc to build the library or binary.
+- A package can have multiple binary crates by placing files in the src/bin directory.
