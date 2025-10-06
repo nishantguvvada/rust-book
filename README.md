@@ -1236,3 +1236,19 @@ fn describe_state_quarter(coin: Coin) -> Option<String> {
 - Cargo knows that if the package directory contains src/lib.rs, the package contains a library crate with the same name as the package, and src/lib.rs is its crate root.
 - Cargo passes the crate root files to rustc to build the library or binary.
 - A package can have multiple binary crates by placing files in the src/bin directory.
+
+## Defining Modules to Controle Scope and Privacy
+
+- items inside modules are private.
+- To make the items inside modules public, add `pub mod`.
+- src/main.rs is the crate root for a binary crate.
+- src/lib.rs is the crate root for a library crate.
+- A module is defined by the keyword `mod` followed by the name of the module followed by curly brackets.
+- When the compiler comes across a mod declared, it finds the code of the module by looking at:
+
+1. Curly brackets following the `mod restaurant` declaration.
+2. src/restaurant.rs
+3. src/restaurant/mod.rs
+
+- You can access paths to code in modules: crate::restaurant::frontend::Bookings
+- The `use` keyword allow shortcuts.
