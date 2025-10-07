@@ -1239,16 +1239,35 @@ fn describe_state_quarter(coin: Coin) -> Option<String> {
 
 ## Defining Modules to Controle Scope and Privacy
 
-- items inside modules are private.
-- To make the items inside modules public, add `pub mod`.
-- src/main.rs is the crate root for a binary crate.
-- src/lib.rs is the crate root for a library crate.
-- A module is defined by the keyword `mod` followed by the name of the module followed by curly brackets.
-- When the compiler comes across a mod declared, it finds the code of the module by looking at:
+- Start from the crate root: when compiling a crate, the compiler first looks in the crate root file for code to compile.
+- Declaring modules: In the crate root file, you can declare new modules such as `mod garden`. The compiler will look for the module's code:
+  - inline, within curly brackets following `mod garden`.
+  - in the file src/garden.rs.
+  - in the file src/garden/mod.rs.
+- Declaring submodules: You can declare submodules in any file other than the crate root. The compiler will look for the submodule's code:
+  - inline, within curly brackets following `mod vegetables`.
+  - in the file src/garden/vegetables.rs.
+  - in the file src/garden/vegetables/mod.rs.
+- Paths to code in modules: you can access paths to code in modules using crate::restaurant::frontend::Bookings
+- Private vs Public: Code within a module is private from it's parent modules by default. Use `pub mod` to make a module public.
+- `use` keyword: To reduce repetition of long paths, the `use` keyword creates shortcuts.
 
-1. Curly brackets following the `mod restaurant` declaration.
-2. src/restaurant.rs
-3. src/restaurant/mod.rs
+```
+mod front_of_house {
+    mod hosting {
+        fn add_to_waitlist() {}
 
-- You can access paths to code in modules: crate::restaurant::frontend::Bookings
-- The `use` keyword allow shortcuts.
+        fn seat_at_table() {}
+    }
+
+    mod serving {
+        fn take_order() {}
+
+        fn serve_order() {}
+
+        fn take_payment() {}
+    }
+}
+```
+
+- Earlier, we mentioned that src/main.rs and src/lib.rs are called crate roots. The reason for their name is that the contents of either of these two files form a module named crate at the root of the crate’s module structure, known as the module tree.
