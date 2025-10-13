@@ -1278,3 +1278,44 @@ A path can take 2 forms:
 
 1. Absolute path is a full path starting from a crate root. For code from external crate, absolute path begins with crate name and for code from current crate, it starts with the litral `crate`.
 2. Relative path starts from the current module and uses `self`, `super` or an identifier in the current modules
+
+```
+pub mod front_of_house {
+    pub mod hosting {
+        pub fn add_to_waitlist() {
+            println!("Added to waitlist!");
+        }
+    }
+}
+
+pub mod dining {
+    pub fn eat_at_restaurant() {
+        // Absolute path (unchanged)
+        crate::front_of_house::hosting::add_to_waitlist();
+
+        // ❌ Relative path (this would fail now)
+        // front_of_house::hosting::add_to_waitlist();
+
+        // ✅ Corrected relative path (go up one level to crate root)
+        super::front_of_house::hosting::add_to_waitlist();
+    }
+}
+```
+
+- In Rust, all items (functions, methods, structs, enums, modules, and constants) are private to parent modules by default.
+- Items in a parent module can’t use the private items inside child modules, but items in child modules can use the items in their ancestor modules.
+
+### Exposing Paths with the `pub` Keyword
+
+- Adding the `pub` keyword in front of `mod hosting` makes the hosting module public.
+- Making the module public doesn’t make its contents public. The pub keyword on a module only lets code in its ancestor modules refer to it, not access its inner code.
+- If functions are defined in the same module i.e. function are siblings, we can refer one function from the other.
+
+### Starting Relative Paths with super
+
+- `super` is equivalent to `..` syntax that means to go to the parent directory.
+
+### Making Structs and Enums Public
+
+- We can also use pub to designate structs and enums as public, but there are a few extra details to the usage of pub with structs and enums. If we use pub before a struct definition, we make the struct public, but the struct’s fields will still be private.
+- If we make an enum public, all of its variants are then public.
