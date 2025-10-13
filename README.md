@@ -1271,3 +1271,10 @@ mod front_of_house {
 ```
 
 - Earlier, we mentioned that src/main.rs and src/lib.rs are called crate roots. The reason for their name is that the contents of either of these two files form a module named crate at the root of the crate’s module structure, known as the module tree.
+
+## Paths for Referring to an Item in the Module Tree
+
+A path can take 2 forms:
+
+1. Absolute path is a full path starting from a crate root. For code from external crate, absolute path begins with crate name and for code from current crate, it starts with the litral `crate`.
+2. Relative path starts from the current module and uses `self`, `super` or an identifier in the current modules
