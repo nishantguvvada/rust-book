@@ -1319,3 +1319,44 @@ pub mod dining {
 
 - We can also use pub to designate structs and enums as public, but there are a few extra details to the usage of pub with structs and enums. If we use pub before a struct definition, we make the struct public, but the struct’s fields will still be private.
 - If we make an enum public, all of its variants are then public.
+
+## Bringing Paths into Scope with the `use` keyword
+
+- we can create a shortcut to a path with the `use` keyword
+
+```
+mod front_of_house {
+    pub mod hosting {
+        pub fn add_to_waitlist() {}
+    }
+}
+
+use crate::front_of_house::hosting;
+
+pub fn eat_at_restaurant() {
+    hosting::add_to_waitlist();
+}
+```
+
+- `use` only creates the shortcut for the particular scope in which the `use` occurs.
+
+### Creating Idiomatic `use` Paths
+
+- The above code is the idiomatic way to bring a function into scope with `use`. Bringing the function’s parent module into scope with use means we have to specify the parent module when calling the function. Specifying the parent module when calling the function makes it clear that the function isn’t locally defined while still minimizing repetition of the full path.
+- when bringing in structs, enums, and other items with `use`, it’s idiomatic to specify the full path.
+- If we’re bringing two items with the same name into scope with use statements, Rust doesn’t allow that.
+
+```
+use std::fmt;
+use std::io;
+
+fn function1() -> fmt::Result {
+    // --snip--
+}
+
+fn function2() -> io::Result<()> {
+    // --snip--
+}
+```
+
+- Using the parent modules distinguishes the two Result types.
