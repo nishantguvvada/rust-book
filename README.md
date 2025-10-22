@@ -1398,3 +1398,28 @@ pub fn eat_at_restaurant() {
 ```
 
 - Before this change, external code would have to call the add_to_waitlist function by using the path restaurant::front_of_house::hosting::add_to_waitlist(), which also would have required the front_of_house module to be marked as pub. Now that this pub use has re-exported the hosting module from the root module, external code can use the path restaurant::hosting::add_to_waitlist() instead.
+
+### Using External Packages
+
+- Adding the crate name as a dependency in Cargo.toml tells Cargo to download the package and any dependencies from crates.io and make the crate available to our project.
+- To bring rand definitions into the scope of our package, we add a `use` line starting with the name of the crate and list the items we wanted to bring into scope.
+
+### Using Nested Paths to Clean Up Large use Lists
+
+- We can use nested paths to bring the same items into scope in one line. We do this by specifying the common part of the path, followed by two colons, and then curly brackets around a list of the parts of the paths that differ
+
+```
+// --snip--
+use std::{cmp::Ordering, io};
+// --snip--
+
+```
+
+```
+use std::io;
+use std::io::Write;
+
+use std::io::{self, Write};
+```
+
+- This line brings std::io and std::io::Write into scope.
