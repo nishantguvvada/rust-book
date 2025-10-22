@@ -1377,3 +1377,24 @@ fn function2() -> IoResult<()> {
     // --snip--
 }
 ```
+
+### Re-exporting Names with `pub use`
+
+- Re-exporting: To enable code outside the scope into which we imported a name with the `use` keyword, to refer to that name as if it had been defined in that scope, we can combine `pub` and `use`.
+- This technique is called re-exporting because we’re bringing an item into scope but also making that item available for others to bring into their scope.
+
+```
+mod front_of_house {
+    pub mod hosting {
+        pub fn add_to_waitlist() {}
+    }
+}
+
+pub use crate::front_of_house::hosting;
+
+pub fn eat_at_restaurant() {
+    hosting::add_to_waitlist();
+}
+```
+
+- Before this change, external code would have to call the add_to_waitlist function by using the path restaurant::front_of_house::hosting::add_to_waitlist(), which also would have required the front_of_house module to be marked as pub. Now that this pub use has re-exported the hosting module from the root module, external code can use the path restaurant::hosting::add_to_waitlist() instead.
