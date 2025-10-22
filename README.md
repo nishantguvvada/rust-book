@@ -1423,3 +1423,7 @@ use std::io::{self, Write};
 ```
 
 - This line brings std::io and std::io::Write into scope.
+
+### Glob Operator
+
+- If we want to bring all public items defined in a path into scope, we can specify that path followed by the \* glob operator.
