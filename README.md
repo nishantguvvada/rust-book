@@ -1427,3 +1427,10 @@ use std::io::{self, Write};
 ### Glob Operator
 
 - If we want to bring all public items defined in a path into scope, we can specify that path followed by the \* glob operator.
+
+## Separating Modules into Different Files
+
+- When modules get large, you might want to move to a separate file to make the code easier to navigate.
+- Instead of having all the modules defined in the crate root file, extract the modules into it's own file.
+- Leave the `mod front_of_house` in the crate root. Move the code in the module to a new file. The compiler knows to look in this file because it came across the module declaration in the crate root with the module name.
+- Module code is private by default, but you can make definitions public by adding the `pub` keyword.
