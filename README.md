@@ -1434,3 +1434,16 @@ use std::io::{self, Write};
 - Instead of having all the modules defined in the crate root file, extract the modules into it's own file.
 - Leave the `mod front_of_house` in the crate root. Move the code in the module to a new file. The compiler knows to look in this file because it came across the module declaration in the crate root with the module name.
 - Module code is private by default, but you can make definitions public by adding the `pub` keyword.
+
+# CHAPTER 8
+
+## Common Collections
+
+- Rust's standard library includes a number of very useful data structures called collections.
+- Collections can contain multiple values
+- Data that collection points to is stored on the heap; amount of data is not known at compile time and can grow or shrink as the program runs
+- Collections very often used:
+
+1. Vector: allows to store a variable number of values next to each other
+2. String: a collection of characters
+3. Hash Map: allows to associate a value with a specific key
