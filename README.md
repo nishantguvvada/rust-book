@@ -1490,3 +1490,25 @@ v.push(6);
 - When we use the get method with the index passed as an argument, we get an Option<&T> that we can use with match.
 - The first [] method will cause the program to panic because it references a nonexistent element. This method is best used when you want your program to crash if there’s an attempt to access an element past the end of the vector.
 - When the get method is passed an index that is outside the vector, it returns None without panicking.
+
+### Iterating Over the Values in a Vector
+
+To access each element in a vector in turn:
+
+```
+// Ierating over immutaable references
+let v = vec![100, 32, 57];
+for i in &v {
+  println!("{i}");
+}
+```
+
+```
+// Iterating over mutable references
+let mut v = vec![100, 32, 57];
+for i in &mut v {
+    *i += 50;
+}
+```
+
+**To change the value that the mutable reference refers to, we have to use the \* dereference operator to get to the value in i before we can use the += operator.**
