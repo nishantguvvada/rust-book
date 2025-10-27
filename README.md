@@ -1512,3 +1512,21 @@ for i in &mut v {
 ```
 
 **To change the value that the mutable reference refers to, we have to use the \* dereference operator to get to the value in i before we can use the += operator.**
+
+### Using an Enum to Store Multiple Types
+
+- Vectors can only stores values of the same type. The variants of an enum are of the same enum type, so we can store the enum in vectors.
+
+```
+    enum SpreadsheetCell {
+        Int(i32),
+        Float(f64),
+        Text(String),
+    }
+
+    let row = vec![
+        SpreadsheetCell::Int(3),
+        SpreadsheetCell::Text(String::from("blue")),
+        SpreadsheetCell::Float(10.12),
+    ];
+```
