@@ -1447,3 +1447,25 @@ use std::io::{self, Write};
 1. Vector: allows to store a variable number of values next to each other
 2. String: a collection of characters
 3. Hash Map: allows to associate a value with a specific key
+
+## Storing Lists of Values with Vectors
+
+- Vector `Vec<T>` allows you to store more than one value in a single data structure that puts all the values next to each other in memory.
+- Vectors can only store values of the same type.
+
+### Creating a New Vector
+
+- Use type annotation to create a new, empty vector : `let v: Vec<i32> = Vec::new()`
+- Use the vec! macro to create a new vector with initial values : `let v = vec![1, 2, 3]`
+
+### Updating a Vector
+
+- `push` method can be used to add elements to the vector
+
+```
+let mut v = Vec::new();
+
+v.push(4);
+v.push(5);
+v.push(6);
+```
