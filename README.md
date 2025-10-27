@@ -1469,3 +1469,24 @@ v.push(4);
 v.push(5);
 v.push(6);
 ```
+
+### Reading Elements of Vectors
+
+- There are 2 ways to reference a value stored in a vector: indexing and using `get` method
+
+```
+    let v = vec![1, 2, 3, 4, 5];
+
+    let third: &i32 = &v[2];
+    println!("The third element is {third}");
+
+    let third: Option<&i32> = v.get(2);
+    match third {
+        Some(third) => println!("The third element is {third}"),
+        None => println!("There is no third element."),
+    }
+```
+
+- When we use the get method with the index passed as an argument, we get an Option<&T> that we can use with match.
+- The first [] method will cause the program to panic because it references a nonexistent element. This method is best used when you want your program to crash if there’s an attempt to access an element past the end of the vector.
+- When the get method is passed an index that is outside the vector, it returns None without panicking.
