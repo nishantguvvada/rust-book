@@ -1530,3 +1530,20 @@ for i in &mut v {
         SpreadsheetCell::Float(10.12),
     ];
 ```
+
+### Dropping a Vector Drops its Elements
+
+```
+    {
+        let v = vec![1, 2, 3, 4];
+
+        // do stuff with v
+    } // <- v goes out of scope and is freed here
+```
+
+## Storing UTF-8 Encoded Text with Strings
+
+- Rust has only one string type in the core language: string slice denoted by `str`.
+- String literals, are stored in the program’s binary and are therefore string slices.
+- String type provided by Rust's standard library is a growable, mutable, owned, UTF-8 encoded string type.
+- Both `String` and string slices are UTF-8 encoded.
