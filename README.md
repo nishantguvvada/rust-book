@@ -1547,3 +1547,26 @@ for i in &mut v {
 - String literals, are stored in the program’s binary and are therefore string slices.
 - String type provided by Rust's standard library is a growable, mutable, owned, UTF-8 encoded string type.
 - Both `String` and string slices are UTF-8 encoded.
+
+### Creating a New String
+
+- Many of the same operations of Vec<T> are available with `String` as well because String is implemented as a wrapper around a vector of bytes with some extra guarantees, restrictions and capabilities. Example: `new()`.
+- To start the string with some initial data (create a `String` from a string literal): `to_string()` method
+- `String::from` can also be used to create a `String` from a string litral.
+
+### Updating a String
+
+- Use the `+` operator or the `format!` macro to concatenate `String` values
+
+#### Appending to a String with push_str and push
+
+```
+    let mut s = String::from("foo");
+    s.push_str("bar");
+```
+
+```
+// Adding one character to a String value using push
+    let mut s = String::from("lo");
+    s.push('l');
+```
