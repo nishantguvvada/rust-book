@@ -1599,5 +1599,36 @@ for i in &mut v {
 - A String is a wrapper over a Vec<u8>. Let’s look at some of our properly encoded UTF-8 example strings.
   First, this one: `let hello = String::from("Hola");`
 - In this case, len will be 4, which means the vector storing the string "Hola" is 4 bytes long. Each of these letters takes one byte when encoded in UTF-8. The following line, however, may surprise you (note that this string begins with the capital Cyrillic letter Ze, not the number 3): `let hello = String::from("Здравствуйте");`
-- If you were asked how long the string is, you might say 12. In fact, Rust’s answer is 24: that’s the number of bytes it takes to encode “Здравствуйте” in UTF-8, because each Unicode scalar value in that string takes 2 bytes of storage. Therefore, an index into the string’s bytes will not always correlate to a valid Unicode scalar value. That is why indexing to access parts of a Strign is not supported in Rust.
+- If you were asked how long the string is, you might say 12. In fact, Rust’s answer is 24: that’s the number of bytes it takes to encode “Здравствуйте” in UTF-8, because each Unicode scalar value in that string takes 2 bytes of storage. Therefore, an index into the string’s bytes will not always correlate to a valid Unicode scalar value. That is why indexing to access parts of a String is not supported in Rust.
 - A final reason Rust doesn’t allow us to index into a String to get a character is that indexing operations are expected to always take constant time (O(1)). But it isn’t possible to guarantee that performance with a String, because Rust would have to walk through the contents from the beginning to the index to determine how many valid characters there were.
+
+#### Slicing Strings
+
+- Indexing into a string is often a bad idea because it’s not clear what the return type of the string-indexing operation should be: a byte value, a character, a grapheme cluster, or a string slice.
+- Rather than indexing using [] with a single number, you can use [] with a range to create a string slice containing particular bytes.
+
+```
+let hello = "Здравствуйте";
+
+let s = &hello[0..4];
+```
+
+#### Methods for Iterating Over Strings
+
+- The bestway to operate on pieces of strings is to be explicit about whether you want characters or bytes/
+- For individual Unicode scalar values, use `chars` methods.
+
+```
+for c in "3A".chars() {
+  // Calling `chars` on "3A" separates out and returns two values of type `char`
+  println!("{c}")
+}
+```
+
+- The `bytes` method returns each raw byte.
+
+```
+for b in "3A".bytes() {
+  println!("{b}");
+}
+```
