@@ -1651,3 +1651,23 @@ scores.insert(String::("Yellow"), 50);
 ```
 
 - Hash maps are homogeneous: all of the keyws must have the smae type and all of the values must have the same type.
+
+### Accessing Values in a Hash Map
+
+- We can get a value out of a Hash Map by providing the key to the `get` method:
+
+```
+let team_name = String::from("Blue");
+let score = scores.get(&team_name).copied().unwrap_or(0);
+```
+
+- The `get` method returns an Option<&V>
+- If no value for that key, `get` will return `None`.
+- This program handles the Option by calling copied to get an Option<i32> rather than an Option<&i32>, then unwrap_or to set score to zero if scores doesn’t have an entry for the key.
+- We can iterate over each key-value pair in a hash map.
+
+```
+for (key, value) in &scores {
+  println!("{key}: {value}");
+}
+```
