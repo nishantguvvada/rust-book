@@ -786,7 +786,7 @@ fn dangle() -> &String { // dangle returns a reference to a String
 
 - A string slice is a reference to a contiguous sequence of the elements of a String.
 - Rather than a reference to the entire String, Slice is a reference to a portion of the String.
-  -We create slices using a range within brackets by specifying [starting_index..ending_index], where starting_index is the first position in the slice and ending_index is one more than the last position in the slice.
+- We create slices using a range within brackets by specifying [starting_index..ending_index], where starting_index is the first position in the slice and ending_index is one more than the last position in the slice.
 - Slice data structure stores the starting position and the length of the slice. So, in the case of let world = &s[6..11];, world would be a slice that contains a pointer to the byte at index 6 of s with a length value of 5.
 
 ```
@@ -1632,3 +1632,22 @@ for b in "3A".bytes() {
   println!("{b}");
 }
 ```
+
+## Storing Keys with Associated Values in Hash Maps
+
+- The type HashMap<K, V> stores a mapping of keys of type K to values of type V using a hashing function which determines how it places these keys and values in the memory.
+
+### Creating a New Hash Map
+
+- Use `new` to create an empty hash map and use `insert` to add elements
+
+```
+use std::collections::HashMap;
+
+let mut scores = HashMap::new();
+
+scores.insert(String::from("Blue), 10);
+scores.insert(String::("Yellow"), 50);
+```
+
+- Hash maps are homogeneous: all of the keyws must have the smae type and all of the values must have the same type.
