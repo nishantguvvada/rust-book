@@ -1704,3 +1704,40 @@ scores.insert(String::from("Blue"), 25);
 
 println!("{scores:?});
 ```
+
+#### Adding a Key and Value Only If a Key isn't Present
+
+- It is common to check if a key already exists in a hash map and then take one of the following actions: if the key already exists, the existing value should remain as is, if the key does not exist, insert the key and value pair.
+- Use `entry` API that takes the key you want to check, it returns an enum `Entry` that represents a value that might or might not exist.
+
+```
+use std::collections::HashMap;
+
+let mut scores = HashMap::new();
+scores.insert(String::from("Blue"), 10);
+
+scores.entry(String::from("Blue")).or_insert(50);
+
+println!("{scores:?}");
+```
+
+- The `or_insert` method on `Entry` is defined to return the mutable reference to the value for the corresponding key if that key exists else it inserts the parameter as the new value and returns a mutable reference to the new value.
+
+#### Updating a Value Based on the Old Value
+
+```
+use std::collections::HashMap;
+
+let text = "hello world wonderful world";
+
+let mut map = HashMap::new();
+
+for word in text.split_whitespace() {
+  let count = map.entry(word).or_insert(0);
+  *count += 1;
+}
+```
+
+- The split_whitespace method returns an iterator over subslices, separated by whitespace, of the value in text. The or_insert method returns a mutable reference (&mut V) to the value for the specified key. Here, we store that mutable reference in the count variable, so in order to assign to that value, we must first dereference count using the asterisk (\*). The mutable reference goes out of scope at the end of the for loop, so all of these changes are safe and allowed by the borrowing rules.
+
+- By default, HashMap uses a hashing function called SipHash
