@@ -1688,3 +1688,19 @@ map.insert(field_name, field_value);
 ```
 
 - If we insert references to values into the hash map, the values won't be moved into the hash map. The values that the references point to must be valid for at least as long as the hash map is valid.
+
+### Updating a Hash Map
+
+#### Overwriting a Value
+
+- When a key already has a value assigned, if we insert the same key with a different, new value into the hash map, the old value gets overwritten or replaced by the new value.
+
+```
+use std::collections::HashMap;
+
+let mut scores = HashMap::new();
+scores.insert(String::from("Blue"), 10);
+scores.insert(String::from("Blue"), 25);
+
+println!("{scores:?});
+```
