@@ -1671,3 +1671,20 @@ for (key, value) in &scores {
   println!("{key}: {value}");
 }
 ```
+
+### Hash Maps and Ownership
+
+- Types that implement the `Copy` trait like `i32` are copied into the hash map. For owned values like `String`, the values will be moved and hash map will be the owner of those values.
+
+```
+use std::collections::HashMap;
+
+let field_name = String::from("Favorite color");
+let field_value = String::from("Blue");
+
+let mut map = HashMap::new();
+map.insert(field_name, field_value);
+// We aren’t able to use the variables field_name and field_value after they’ve been moved into the hash map with the call to insert.
+```
+
+- If we insert references to values into the hash map, the values won't be moved into the hash map. The values that the references point to must be valid for at least as long as the hash map is valid.
