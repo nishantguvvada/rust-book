@@ -1,4 +1,4 @@
-// use std::collections::HashMap;
+use std::collections::HashMap;
 
 fn main() {
     // let mut v = Vec::new();
@@ -51,9 +51,61 @@ fn main() {
     // so first becomes irst-fay. Words that start with a vowel have hay added to the end instead (apple becomes apple-hay).
     // Keep in mind the details about UTF-8 encoding!
 
-    println!("{}", pig_latin_word("first")); // irst-fay
-    println!("{}", pig_latin_word("apple")); // apple-hay
-    println!("{}", pig_latin_word("Hello")); // ello-Hay
+    // println!("{}", pig_latin_word("first")); // irst-fay
+    // println!("{}", pig_latin_word("apple")); // apple-hay
+    // println!("{}", pig_latin_word("Hello")); // ello-Hay
+
+    // Using a hash map and vectors, create a text interface to allow a user to add employee names to a department in a company;
+    // for example, “Add Sally to Engineering” or “Add Amir to Sales.”
+    // Then let the user retrieve a list of all people in a department or all people in the company by department, sorted alphabetically.
+
+    let mut register: HashMap<String, Vec<String>> = HashMap::new();
+
+    // Pass a string slice (&str) and a mutable reference to the HashMap.
+    // The function will parse the sentence and insert the extracted values into the map.
+    add_employee("Add Sally to Engineering", &mut register);
+    add_employee("Add Amir to Sales", &mut register);
+    add_employee("Add John to Sales", &mut register);
+
+    println!("\nAll employees in Engineering:");
+    list_department("Sales", &register);
+}
+
+fn list_department(dept: &str, map: &HashMap<String, Vec<String>>) {
+    if let Some(employees) = map.get(dept) {
+        let mut sorted = employees.clone();
+        sorted.sort();
+        println!("{:?}", sorted);
+    } else {
+        println!("No such department");
+    }
+}
+
+// The add_employee function takes a string literal which is of type &str and a hashmap.
+// Within the function, we create a vector of references (of type &str).
+// This vector is valid till the original statement variable is valid.
+// Then we slice out the employee name and department name from the vector. But we convert them to String so that once we push it to the hashmap they are not references but the actual variables.
+fn add_employee(statement: &str, map: &mut HashMap<String, Vec<String>>) {
+    // `split_whitespace()` returns an iterator over `&str` slices inside `statement`
+    // `collect()` consumes the iterator and stores the slices in a Vec<&str>
+    let v: Vec<&str> = statement.split_whitespace().collect();
+    // Extract name and department from known positions in the sentence.
+    // Convert &str → String because we need owned values for long-term storage in the map.
+    let employee_name = v[1].to_string();
+    let department_name = v[3].to_string();
+
+    // If we don’t call .to_string(), the HashMap would try to store references to slices inside statement,
+    // but statement does not live long enough. Rust detects this at compile time and prevents compilation to avoid dangling references.
+
+    // `entry()` checks if the department key exists in the map:
+    // - If it exists → returns a mutable reference to its Vec<String>
+    // - If not → inserts a new empty Vec::new() and returns a mutable reference to it
+    // Then we `.push()` the employee name into that Vec<String>
+    map.entry(department_name)
+        .or_insert(Vec::new())
+        .push(employee_name);
+
+    println!("Updated map: {map:?}");
 }
 
 fn pig_latin_word(word: &str) -> String {
@@ -83,10 +135,6 @@ fn pig_latin_word(word: &str) -> String {
         s.push_str("ay");
         s
     }
-
-    // Using a hash map and vectors, create a text interface to allow a user to add employee names to a department in a company;
-    // for example, “Add Sally to Engineering” or “Add Amir to Sales.”
-    // Then let the user retrieve a list of all people in a department or all people in the company by department, sorted alphabetically.
 }
 
 // EXPLANATION OF PIG-LATIN FUNCTION
