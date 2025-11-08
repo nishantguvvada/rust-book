@@ -1745,3 +1745,11 @@ for word in text.split_whitespace() {
 | --------------------- | ------------------------ | -------------------------------------------------------- |
 | **Mutable binding**   | `let mut x = something;` | You can _reassign_ `x` itself (e.g., `x = other_thing;`) |
 | **Mutable reference** | `let x: &mut i32 = ...;` | You can _mutate the value that x points to_ (`*x += 1`)  |
+
+# CHAPTER 9
+
+- Error Handling: Rust requires you to acknowledge the possibility of error and take some action before your code compiles.
+- Rust groups error into 2 major categories: recoverable and unrecoverable
+- For a recoverable error: we want to report the problem and retry
+- For unrecoverable error: we want to stop the program
+- Rust doesn't have exception mechanism. Rust has the type `Result<T, E>` for recoverable errors and the `panic!` macro that stops execution when unrecoverable error is encountered.
