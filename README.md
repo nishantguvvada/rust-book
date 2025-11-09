@@ -1758,3 +1758,15 @@ for word in text.split_whitespace() {
 
 - 2 ways to cause a panic: by taking an action that causes a panic (accessing array past the end) or calling the `panic!` macro
 - panics will print a failure messsage, unwind, clean up the stack and quit.
+
+### Unwinding the Stack or Aborting in Response to a Panic
+
+- By default, when a panic occurs, the program starts unwinding which means Rust walks back up the stack and cleans up the data from each function. Walking back and cleaning up is a lot of work, therefore, Rust allows you to choose the alternative of immediately aborting which ends the program without cleaning up.
+
+```
+fn main() {
+  panic!("crash and burn");
+}
+```
+
+- Backtrace is a list of all the functions that have been called to get to this point. Backtraces in Rust work as they do in other languages: the key to reading the backtrace is to start from the top and read until you see files you wrote. That’s the spot where the problem originated. The lines above that spot are code that your code has called; the lines below are code that called your code.
