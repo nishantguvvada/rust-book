@@ -1753,3 +1753,8 @@ for word in text.split_whitespace() {
 - For a recoverable error: we want to report the problem and retry
 - For unrecoverable error: we want to stop the program
 - Rust doesn't have exception mechanism. Rust has the type `Result<T, E>` for recoverable errors and the `panic!` macro that stops execution when unrecoverable error is encountered.
+
+## Unrecoverable Errors with panic!
+
+- 2 ways to cause a panic: by taking an action that causes a panic (accessing array past the end) or calling the `panic!` macro
+- panics will print a failure messsage, unwind, clean up the stack and quit.
