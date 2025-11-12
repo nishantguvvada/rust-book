@@ -1749,7 +1749,7 @@ for word in text.split_whitespace() {
 # CHAPTER 9
 
 - Error Handling: Rust requires you to acknowledge the possibility of error and take some action before your code compiles.
-- Rust groups error into 2 major categories: recoverable and unrecoverable
+- Rust groups errors into 2 major categories: recoverable and unrecoverable
 - For a recoverable error: we want to report the problem and retry
 - For unrecoverable error: we want to stop the program
 - Rust doesn't have exception mechanism. Rust has the type `Result<T, E>` for recoverable errors and the `panic!` macro that stops execution when unrecoverable error is encountered.
@@ -1770,3 +1770,49 @@ fn main() {
 ```
 
 - Backtrace is a list of all the functions that have been called to get to this point. Backtraces in Rust work as they do in other languages: the key to reading the backtrace is to start from the top and read until you see files you wrote. That’s the spot where the problem originated. The lines above that spot are code that your code has called; the lines below are code that called your code.
+
+## Recoverable Errors with Result
+
+- We can use Result enum in situations where the success value and error value we want to return differs.
+
+```
+use std::fs::File;
+
+fn main() {
+  let greeting_file_result = File::open("hello.txt");
+
+  let greeting_file = match greeting_file_result {
+    Ok(file) => file,
+    Err(error) => panic!("Problem opening the file: {error:?}")
+  };
+}
+```
+
+### Matching on Different Errors
+
+- If we want to take different actions for different failure reasons
+
+```
+use std::fs::File;
+use std::io::ErrorKind;
+
+fn main() {
+  let greeting_file_result = File::open("hello.txt");
+
+  let greeting_file = match greeting_file_result {
+    Ok(file) => file,
+    Err(error) => match error.kind() {
+      ErrorKind::NotFound => match File::create("hello.txt") {
+        Ok(fc) => fc,
+        Err(e) => panic!("Problem creating the file: {e:?}),
+      },
+      _ => {
+        panic!("Problem opening the file: {error:?}");
+      }
+    }
+  }
+}
+```
+
+- The type of the value that File::open returns inside the Err variant is io::Error, which is a struct provided by the standard library. This struct has a method kind that we can call to get an io::ErrorKind value. The enum io::ErrorKind is provided by the standard library and has variants representing the different kinds of errors that might result from an io operation. The variant we want to use is ErrorKind::NotFound, which indicates the file we’re trying to open doesn’t exist yet. So we match on greeting_file_result, but we also have an inner match on error.kind().
+- The condition we want to check in the inner match is whether the value returned by error.kind() is the NotFound variant of the ErrorKind enum. If it is, we try to create the file with File::create. However, because File::create could also fail, we need a second arm in the inner match expression. When the file can’t be created, a different error message is printed. The second arm of the outer match stays the same, so the program panics on any error besides the missing file error.
