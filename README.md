@@ -1844,3 +1844,36 @@ fn main() {
 - We can return the error originating from an implementation that might fail to the calling code. This is known as propagating the error.
 
 ### A Shortcut for Propagating Errors: ? Operator
+
+- The `?` placed after a Result value is defined to work in almost the same way as the `match` expressions
+- If the value of the Result is an `Ok`, the value inside the `Ok` will get returned from this expression, and the program will continue. If the value is an Err, the Err will be returned from the whole function as if we had used the return keyword so the error value gets propagated to the calling code.
+- The difference between `?` and `match` is that the error values that have `?` operator go through the `from` function defined in the `From` trait in the standard library, which is used to convert values from one type into another.
+
+### Where the ? Operator can be Used
+
+The `?` operator can only be used in functions whose return type is compatible with the value on which `?` is used.
+
+```
+use std::fs::File;
+
+fn main() {
+    let greeting_file = File::open("hello.txt")?;
+}
+```
+
+- The above implementation fails because the value returned by `File::open` follows `Result` but the main function has the return type of `()`, not `Result`.
+- Note that you can use the `?` operator on a Result in a function that returns Result, and you can use the `?` operator on an Option in a function that returns Option, but you can’t mix and match.
+
+```
+use std::error::Error;
+use std::fs::File;
+
+fn main() -> Result<(), Box<dyn Error>> {
+    let greeting_file = File::open("hello.txt")?;
+
+    Ok(())
+}
+```
+
+- `Box<dyn Error>` type is a trait object. "Any kind of error".
+- Even though the body of this main function will only ever return errors of type std::io::Error, by specifying Box<dyn Error>, this signature will continue to be correct even if more code that returns other errors is added to the body of main.
