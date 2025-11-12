@@ -1816,3 +1816,31 @@ fn main() {
 
 - The type of the value that File::open returns inside the Err variant is io::Error, which is a struct provided by the standard library. This struct has a method kind that we can call to get an io::ErrorKind value. The enum io::ErrorKind is provided by the standard library and has variants representing the different kinds of errors that might result from an io operation. The variant we want to use is ErrorKind::NotFound, which indicates the file we’re trying to open doesn’t exist yet. So we match on greeting_file_result, but we also have an inner match on error.kind().
 - The condition we want to check in the inner match is whether the value returned by error.kind() is the NotFound variant of the ErrorKind enum. If it is, we try to create the file with File::create. However, because File::create could also fail, we need a second arm in the inner match expression. When the file can’t be created, a different error message is printed. The second arm of the outer match stays the same, so the program panics on any error besides the missing file error.
+
+### Shortcuts for Panic on Error: unwrap and expect
+
+- Using `match` can be verbose and doesn't always communicate intent.
+- `unwrap` method of `Result<T, E>` type is a shortcut. If the `Result` value is the `Ok` variant, `unwrap` will return the value inside `Ok`. If the `Result` is the `Err` variant, `unwrap` will call the `panic!`.
+
+```
+fn main() {
+  let greeting_file = File::open("hello.txt").unwrap();
+}
+```
+
+- Using `expect` method allows to choose the panic! error message.
+
+```
+fn main() {
+  let greeting_file = File::open("hello.txt")
+    .expect("hello.txt should be included in this project");
+}
+```
+
+**We use expect in the same way as unwrap: to return the file handle or call the panic! macro.**
+
+### Propagating Errors
+
+- We can return the error originating from an implementation that might fail to the calling code. This is known as propagating the error.
+
+### A Shortcut for Propagating Errors: ? Operator
