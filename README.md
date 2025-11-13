@@ -1899,3 +1899,21 @@ let home: IpAddr = "127.0.0.1"
 ```
 
 - We’re creating an IpAddr instance by parsing a hardcoded string. We can see that 127.0.0.1 is a valid IP address, so it’s acceptable to use expect here. However, having a hardcoded, valid string doesn’t change the return type of the parse method: we still get a Result value, and the compiler will still make us handle the Result as if the Err variant is a possibility because the compiler isn’t smart enough to see that this string is always a valid IP address. If the IP address string came from a user rather than being hardcoded into the program and therefore did have a possibility of failure, we’d definitely want to handle the Result in a more robust way instead. Mentioning the assumption that this IP address is hardcoded will prompt us to change expect to better error-handling code if, in the future, we need to get the IP address from some other source instead.
+
+```
+pub struct Guess {
+  value: i32,
+}
+
+impl Guess {
+  pub fn new(value: i32) -> Guess {
+    if value < 1 || value > 100 {
+      panic!("Guess value must be between 1 and 100");
+    }
+    Guess { value }
+  }
+  pub fn value(&self) -> i32 {
+    self.value
+  }
+}
+```
