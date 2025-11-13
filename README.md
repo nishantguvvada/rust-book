@@ -1877,3 +1877,13 @@ fn main() -> Result<(), Box<dyn Error>> {
 
 - `Box<dyn Error>` type is a trait object. "Any kind of error".
 - Even though the body of this main function will only ever return errors of type std::io::Error, by specifying Box<dyn Error>, this signature will continue to be correct even if more code that returns other errors is added to the body of main.
+
+## To panic! or Not to panic!
+
+- When the code panics, there is no way to recover.
+- When you call `panic!` you are making a decision on behalf of the calling code that the situation will be unrecoverable. When you return a `Result` value, you give options to the calling code.
+  **Returning a `Result` is a good default choice.**
+
+### Examples, Prototype Code and Tests
+
+- It is good to panic in examples, prototype code and tests. If a method call fails in a test, we want the whole test to fail, even if that method isn't under test.
