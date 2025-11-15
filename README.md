@@ -1917,3 +1917,31 @@ impl Guess {
   }
 }
 ```
+
+# CHATPER 10
+
+## Generic Types, Traits and Lifetimes
+
+- generics - a tool for handling duplication of concepts.
+- traits - to define behaviour in a generic way.
+- lifetimes - allows to give enough information about borrowed values so that references will be valid.
+
+### Removing duplication by extracting a function
+
+- Generics allow us to replace specific types with placeholder that represents multiple types to remove code duplication.
+
+```
+fn main() {
+  let number_list = vec![34, 50, 25, 100, 65];
+
+  let mut largest = &number_list[0];
+
+  for number in &number_list {
+    if number > largest {
+      largest = number;
+    }
+  }
+
+  println!("The largest number is {largest});
+}
+```
