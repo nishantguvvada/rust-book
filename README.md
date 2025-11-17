@@ -1945,3 +1945,17 @@ fn main() {
   println!("The largest number is {largest});
 }
 ```
+
+## Generic Data Types
+
+- Generics can be used to create definitions of function signature or structs
+
+### Function Definition
+
+- When defining a function that uses generics, we place generics in the signature of the function where we specify data types of parameters and return value.
+- We have to mention the type parameter name before using in the signature of the function.
+
+```
+fn largest<T>(list: &[T]) -> &T {}
+// function largest is generic over some type T
+```
