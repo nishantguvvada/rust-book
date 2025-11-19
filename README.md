@@ -1978,3 +1978,32 @@ fn main() {
 ```
 
 - We can change the definition of Point to be generic over types T and U where x is of type T and y is of type U.
+
+### Enum Definition
+
+- define enums to hold generic data types in their variants
+- `Option<T>` enum is generic over type T and has 2 variants: `Some` which holds one value of type T and `None` variant that doesn't hold any value.
+- As `Option<T>` enum is generic, we can use it to express the abstract concept of an optional value no matter what the type of value is.
+
+### Method Definition
+
+- We can implement methods on structs and enums and use generic types in their definition.
+
+```
+struct Point<X1, Y1> {
+    x: X1,
+    y: Y1,
+}
+
+impl<X1, Y1> Point<X1, Y1> {
+    fn mixup<X2, Y2>(self, other: Point<X2, Y2>) -> Point<X1, Y2> {
+        Point {
+            x: self.x,
+            y: other.y,
+        }
+    }
+}
+```
+
+- `impl` can have separate generic types than the methods within `impl`.
+- In the above example, `impl` is generic over X1 and Y1 but the mixup method is generic over X2 and Y2.
