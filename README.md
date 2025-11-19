@@ -1949,6 +1949,7 @@ fn main() {
 ## Generic Data Types
 
 - Generics can be used to create definitions of function signature or structs
+- How to declare generic types? : declare the name of the type parameter inside angle brackets just after the name of the function/struct/enum etc. then use the generic type inside the definition where we would otherwise specify concrete data types.
 
 ### Function Definition
 
@@ -1959,3 +1960,21 @@ fn main() {
 fn largest<T>(list: &[T]) -> &T {}
 // function largest is generic over some type T
 ```
+
+### Struct Definition
+
+- define structs to use a generic type parameter using `<>` syntax
+
+```
+struct Point<T> {
+  x: T,
+  y: T
+}
+
+fn main() {
+  let integer = Point { x: 5, y: 6};
+  let float = Point { x: 4.5, y: 0.6 };
+}
+```
+
+- We can change the definition of Point to be generic over types T and U where x is of type T and y is of type U.
