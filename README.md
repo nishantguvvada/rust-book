@@ -2007,3 +2007,8 @@ impl<X1, Y1> Point<X1, Y1> {
 
 - `impl` can have separate generic types than the methods within `impl`.
 - In the above example, `impl` is generic over X1 and Y1 but the mixup method is generic over X2 and Y2.
+
+### Performance of Code using Generics
+
+- There is no runtime cost by using generics
+- Rust uses monomorphization of the code, a process that looks at all the places where generic code is called and generates the code using concrete types.
