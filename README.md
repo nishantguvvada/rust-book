@@ -2016,4 +2016,19 @@ impl<X1, Y1> Point<X1, Y1> {
 ## Traits: Defining Shared Behavior
 
 - trait defines the functionality a particular type has.
-- trait bounds specify that a generic type can be any type that has a certain behaviour
+- trait bounds specify that a generic type can be any type that has a certain behavior
+
+### Defining a Trait
+
+- a type's behavior consists of the methods we can call. Different types share the same behavior if we can call the same methods of those types.
+
+```
+pub trait Summary {
+    fn summarize(&self) -> String;
+}
+```
+
+- we declare a trait using the `trait` keyword.
+- A trait can have multiple methods in its body: each method signature ends in a semicolon.
+- Inside the curly brackets, we declare the method signatures that describe the behaviors of the types that implement this trait.
+- Each type must provide it's own custom behavior for the body of the method.
