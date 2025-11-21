@@ -2012,3 +2012,8 @@ impl<X1, Y1> Point<X1, Y1> {
 
 - There is no runtime cost by using generics
 - Rust uses monomorphization of the code, a process that looks at all the places where generic code is called and generates the code using concrete types.
+
+## Traits: Defining Shared Behavior
+
+- trait defines the functionality a particular type has.
+- trait bounds specify that a generic type can be any type that has a certain behaviour
